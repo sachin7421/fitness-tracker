@@ -749,18 +749,124 @@ async function loadFromCloud(){
     if(text&&text!=='{}'&&text.trim().startsWith('{')){
       const cloud=JSON.parse(text);
       if(cloud&&cloud.startDate){
-        const localLen=(state.weightHistory||[]).length;
-        const cloudLen=(cloud.weightHistory||[]).length;
-        if(cloudLen>localLen){
-          state={...DEFAULT,...cloud};
-          localStorage.setItem('fitnessState',JSON.stringify(state));
-          showToast('☁️ Loaded latest from cloud!');
+        const merged=mergeStates(state,cloud);
+        const changed=JSON.stringify(merged)!==JSON.stringify(state);
+        state=merged;
+        localStorage.setItem('fitnessState',JSON.stringify(state));
+        if(changed){
+          showToast('☁️ Synced latest data from cloud');
           render();
         }
       }
     }
     setSyncStatus('synced');
   }catch(e){setSyncStatus('error');}
+}
+
+function mergeStates(local, cloud){
+  // Start with defaults, then layer cloud, then selectively override with local where local is newer
+  const merged={...DEFAULT,...cloud};
+
+  // Weight history: combine both, dedupe by date, keep most recent entry per date
+  const allWeights=[...(cloud.weightHistory||[]),...(local.weightHistory||[])];
+  const weightByDate={};
+  allWeights.forEach(e=>{
+    // Keep entry if no entry for this date yet, or if this one is more recent (lower weight = more recent log)
+    if(!weightByDate[e.date]) weightByDate[e.date]=e;
+  });
+  merged.weightHistory=Object.values(weightByDate)
+    .sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+  // Current weight: use whichever was logged most recently
+  const localLastLog=local.weightHistory?.[0];
+  const cloudLastLog=cloud.weightHistory?.[0];
+  if(localLastLog&&cloudLastLog){
+    merged.currentWeight=new Date(localLastLog.date)>=new Date(cloudLastLog.date)
+      ?local.currentWeight:cloud.currentWeight;
+  } else {
+    merged.currentWeight=local.currentWeight||cloud.currentWeight||230;
+  }
+
+  // Calories & burned: use whichever device was active today
+  const today=new Date().toISOString().split('T')[0];
+  const localResetDate=local.lastResetDate||'';
+  const cloudResetDate=cloud.lastResetDate||'';
+  if(localResetDate===today&&cloudResetDate===today){
+    // Both active today — take higher values (more logging done)
+    merged.calories=Math.max(local.calories||0,cloud.calories||0);
+    merged.burned=Math.max(local.burned||0,cloud.burned||0);
+    merged.habits=mergeHabits(local.habits,cloud.habits);
+  } else if(localResetDate===today){
+    merged.calories=local.calories||0;
+    merged.burned=local.burned||0;
+    merged.habits=local.habits||{...DEFAULT.habits};
+  } else if(cloudResetDate===today){
+    merged.calories=cloud.calories||0;
+    merged.burned=cloud.burned||0;
+    merged.habits=cloud.habits||{...DEFAULT.habits};
+  }
+
+  // Weekly drinks: merge by date key, take max per day
+  const localDrinks=local.weekDrinks||{};
+  const cloudDrinks=cloud.weekDrinks||{};
+  const allDrinkDates=new Set([...Object.keys(localDrinks),...Object.keys(cloudDrinks)]);
+  merged.weekDrinks={};
+  allDrinkDates.forEach(d=>{
+    merged.weekDrinks[d]=Math.max(localDrinks[d]||0,cloudDrinks[d]||0);
+  });
+
+  // Exercise weights: merge by exercise id, keep most recent by date
+  const localWeights=local.exerciseWeights||{};
+  const cloudWeights=cloud.exerciseWeights||{};
+  merged.exerciseWeights={...cloudWeights};
+  Object.entries(localWeights).forEach(([id,v])=>{
+    const c=cloudWeights[id];
+    if(!c||new Date(v.date)>=new Date(c.date)) merged.exerciseWeights[id]=v;
+  });
+
+  // Exercise done: merge by date, union of completed exercises
+  const localDone=local.exerciseDone||{};
+  const cloudDone=cloud.exerciseDone||{};
+  merged.exerciseDone={...cloudDone};
+  Object.entries(localDone).forEach(([date,exMap])=>{
+    if(!merged.exerciseDone[date]) merged.exerciseDone[date]={};
+    Object.assign(merged.exerciseDone[date],exMap);
+  });
+
+  // Completed workouts: union
+  merged.completedWorkouts={...(cloud.completedWorkouts||{}),...(local.completedWorkouts||{})};
+
+  // Streak: take the higher value
+  merged.streak=Math.max(local.streak||0,cloud.streak||0);
+  merged.bestStreak=Math.max(local.bestStreak||0,cloud.bestStreak||0);
+
+  // Daily points: merge by date, take max per day
+  const lp=local.dailyPoints||{};
+  const cp=cloud.dailyPoints||{};
+  merged.dailyPoints={};
+  new Set([...Object.keys(lp),...Object.keys(cp)]).forEach(d=>{
+    merged.dailyPoints[d]=Math.max(lp[d]||0,cp[d]||0);
+  });
+
+  // Last sync: keep most recent
+  if(local.lastSync&&cloud.lastSync){
+    merged.lastSync=new Date(local.lastSync)>new Date(cloud.lastSync)?local.lastSync:cloud.lastSync;
+  } else {
+    merged.lastSync=local.lastSync||cloud.lastSync||null;
+  }
+
+  return merged;
+}
+
+function mergeHabits(local,cloud){
+  if(!local) return cloud||{...DEFAULT.habits};
+  if(!cloud) return local;
+  // Union — if either device checked a habit, count it as checked
+  const merged={};
+  Object.keys(DEFAULT.habits).forEach(k=>{
+    merged[k]=(local[k]||false)||(cloud[k]||false);
+  });
+  return merged;
 }
 function setSyncStatus(s){
   const p=document.getElementById('syncPill'),d=document.getElementById('syncDot'),t=document.getElementById('syncText');
