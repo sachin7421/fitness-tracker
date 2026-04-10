@@ -687,7 +687,7 @@ const WORKOUTS={
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 const DEFAULT={
-  startDate:new Date().toISOString().split('T')[0],
+  startDate:(()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})(),
   currentWeight:230,startWeight:230,goalWeight:200,
   weightHistory:[],
   weekDrinks:{}, // {dateStr: count}
@@ -788,7 +788,7 @@ function mergeStates(local, cloud){
   }
 
   // Calories & burned: use whichever device was active today
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDateStr();
   const localResetDate=local.lastResetDate||'';
   const cloudResetDate=cloud.lastResetDate||'';
   if(localResetDate===today&&cloudResetDate===today){
@@ -908,13 +908,21 @@ function showToast(msg){
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2500);
 }
-function todayStr(){return new Date().toISOString().split('T')[0];}
+// Use local date string everywhere — toISOString() uses UTC and shifts dates for Eastern time
+function localDateStr(d){
+  const dt=d||new Date();
+  const y=dt.getFullYear();
+  const m=String(dt.getMonth()+1).padStart(2,'0');
+  const day=String(dt.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function todayStr(){return localDateStr();}
 function daysSinceStart(){return Math.max(1,Math.round((new Date()-new Date(state.startDate))/86400000)+1);}
 function getWeekStart(){
   const d=new Date(); d.setDate(d.getDate()-d.getDay()); return d;
 }
 function getWeekDateStr(dow){
-  const d=getWeekStart(); d.setDate(d.getDate()+dow); return d.toISOString().split('T')[0];
+  const d=getWeekStart(); d.setDate(d.getDate()+dow); return localDateStr(d);
 }
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
@@ -1453,7 +1461,7 @@ async function fetchOura() {
     // Use 3-day window — sleep syncs after waking and may be tagged to today or yesterday
     const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
-    const startDate = threeDaysAgo.toISOString().split('T')[0];
+    const startDate = localDateStr(threeDaysAgo);
 
     const [readRes, sleepRes, dailySleepRes, actRes] = await Promise.all([
       proxyFetch('daily_readiness', today, today),
