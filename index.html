@@ -1231,23 +1231,42 @@ async function fetchOura() {
     const sleep = sleepData.data?.[0] || null;
     const activity = actData.data?.[0] || null;
 
+    // DEBUG — log raw responses to browser console
+    console.log('=== OURA DEBUG ===');
+    console.log('Readiness raw:', JSON.stringify(readiness, null, 2));
+    console.log('Sleep raw:', JSON.stringify(sleep, null, 2));
+    console.log('Activity raw:', JSON.stringify(activity, null, 2));
+
     // Parse correct fields from Oura v2 API
     const readScore = readiness?.score ?? null;
     const sleepScore = sleep?.score ?? null;
 
-    // HRV: average_hrv in ms from sleep endpoint (not the contributor score)
-    const hrv = sleep?.average_hrv ?? null;
+    // HRV: try multiple possible field locations
+    const hrv = sleep?.average_hrv
+      ?? sleep?.hrv?.items?.[0]
+      ?? readiness?.contributors?.hrv_balance
+      ?? null;
 
-    // Resting HR: average_heart_rate from sleep endpoint
-    const restHR = sleep?.average_heart_rate ?? null;
+    // Resting HR: try multiple possible field locations  
+    const restHR = sleep?.average_heart_rate
+      ?? sleep?.lowest_heart_rate
+      ?? sleep?.heart_rate?.avg
+      ?? null;
 
     // Sleep duration: total_sleep_duration in seconds
-    const sleepSecs = sleep?.total_sleep_duration ?? null;
+    const sleepSecs = sleep?.total_sleep_duration
+      ?? sleep?.time_in_bed
+      ?? null;
     const sleepHrs = sleepSecs ? (sleepSecs / 3600).toFixed(1) : null;
 
-    // Active calories from daily activity
-    const activeCal = activity?.active_calories ?? null;
+    // Active calories — try both field names Oura has used
+    const activeCal = activity?.active_calories
+      ?? activity?.cal_active
+      ?? null;
     ouraActiveCal = activeCal || 0;
+
+    // Show debug in status so you can see without opening console
+    statusEl.textContent = 'Debug — Sleep fields: ' + Object.keys(sleep || {}).join(', ');
 
     // Render metrics with color coding
     function scoreColor(v, low=60, high=80) {
