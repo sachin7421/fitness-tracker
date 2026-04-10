@@ -715,6 +715,50 @@ if(!state.currentRoutine) state.currentRoutine='A';
 
 let syncTimer=null;
 
+// ── TIMEZONE MIGRATION ───────────────────────────────────────────────────────
+// Remap any drink/workout keys that were stored with UTC-shifted dates
+function migrateTimezone(){
+  if(state.tzMigrated) return;
+
+  // Build a map of correct local dates for this week
+  const correctDates={};
+  for(let i=0;i<7;i++){
+    const d=new Date();
+    d.setDate(d.getDate()-d.getDay()+i);
+    // UTC version (old buggy key)
+    const utcKey=d.toISOString().split('T')[0];
+    // Local version (correct key)
+    const localKey=localDateStr(d);
+    if(utcKey!==localKey) correctDates[utcKey]=localKey;
+  }
+
+  // Remap weekDrinks
+  if(Object.keys(correctDates).length>0){
+    const fixed={};
+    Object.entries(state.weekDrinks||{}).forEach(([k,v])=>{
+      fixed[correctDates[k]||k]=v;
+    });
+    state.weekDrinks=fixed;
+
+    // Remap completedWorkouts too
+    const fixedWorkouts={};
+    Object.entries(state.completedWorkouts||{}).forEach(([k,v])=>{
+      fixedWorkouts[correctDates[k]||k]=v;
+    });
+    state.completedWorkouts=fixedWorkouts;
+
+    // Remap exerciseDone
+    const fixedDone={};
+    Object.entries(state.exerciseDone||{}).forEach(([k,v])=>{
+      fixedDone[correctDates[k]||k]=v;
+    });
+    state.exerciseDone=fixedDone;
+  }
+
+  state.tzMigrated=true;
+  localStorage.setItem('fitnessState',JSON.stringify(state));
+}
+
 // ── DAILY RESET ──────────────────────────────────────────────────────────────
 function checkDailyReset(){
   const today=todayStr();
@@ -1596,6 +1640,7 @@ function applyOuraBurn() {
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
+migrateTimezone();
 checkDailyReset();
 render();
 loadFromCloud();
