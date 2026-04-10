@@ -1216,11 +1216,15 @@ async function fetchOura() {
     const proxyFetch = (endpoint, start, end) =>
       fetch(`${OURA_PROXY}?endpoint=${endpoint}&start=${start}&end=${end}`, {headers});
 
-    // Fetch today only — no yesterday fallback, blank is better than stale
+    // Use 3-day window — sleep syncs after waking and may be tagged to today or yesterday
+    const threeDaysAgo = new Date();
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+    const startDate = threeDaysAgo.toISOString().split('T')[0];
+
     const [readRes, sleepRes, actRes] = await Promise.all([
       proxyFetch('daily_readiness', today, today),
-      proxyFetch('daily_sleep', today, today),
-      proxyFetch('daily_activity', today, today),
+      proxyFetch('sleep', startDate, today),
+      proxyFetch('daily_activity', startDate, today),
     ]);
 
     const [readData, sleepData, actData] = await Promise.all([
@@ -1229,17 +1233,25 @@ async function fetchOura() {
 
     const readiness = readData.data?.[0] || null;
 
-    // Pick the best long_sleep record — multiple records per day (naps etc), want main sleep
-    const sleepRecords = sleepData.data || [];
+    // Pick the most recent long_sleep record with real data
+    const sleepRecords = (sleepData.data || []);
     const sleep = sleepRecords
-      .filter(s => s.type === 'long_sleep' && s.average_hrv !== null)
-      .sort((a, b) => (b.total_sleep_duration || 0) - (a.total_sleep_duration || 0))[0]
+      .filter(s => s.type === 'long_sleep' && s.average_hrv !== null && s.total_sleep_duration > 3600)
+      .sort((a, b) => new Date(b.bedtime_end) - new Date(a.bedtime_end))[0]
       || sleepRecords
-        .filter(s => s.type === 'long_sleep')
-        .sort((a, b) => (b.total_sleep_duration || 0) - (a.total_sleep_duration || 0))[0]
+        .filter(s => s.type === 'long_sleep' && s.total_sleep_duration > 3600)
+        .sort((a, b) => new Date(b.bedtime_end) - new Date(a.bedtime_end))[0]
       || null;
 
-    const activity = actData.data?.[0] || null;
+    // Activity: prefer today, fall back to most recent
+    const actRecords = (actData.data || []).sort((a, b) => new Date(b.day) - new Date(a.day));
+    const activity = actRecords[0] || null;
+
+    // Temporary debug — show in status bar
+    const debugMsg = sleep
+      ? `Found: ${sleep.day} | HRV:${sleep.average_hrv} | HR:${sleep.lowest_heart_rate} | Sleep:${sleep.total_sleep_duration}s`
+      : `No long_sleep found in ${sleepRecords.length} records`;
+    statusEl.textContent = debugMsg;
 
     // Parse correct Oura v2 fields
     const readScore = readiness?.score ?? null;
