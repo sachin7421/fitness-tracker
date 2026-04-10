@@ -295,32 +295,43 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
 
   <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">⚖️ Weight</div>
-        <div class="weight-display">
-          <div class="weight-num" id="currentWeight">230</div>
-          <div class="weight-unit">lbs</div>
-        </div>
-        <div class="weight-goal">Goal: 200 lbs — <span class="lbs-left" id="lbsLeft">30 lbs to go</span></div>
-        <div class="row-input">
-          <input type="number" id="weightInput" placeholder="Log today's weight..." step="0.1" min="150" max="400">
-          <button onclick="logWeight()">Log</button>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-title">🍺 Alcohol This Week</div>
-        <div class="drinks-display" id="drinksCount">0</div>
-        <div class="drinks-sub">Target: ≤4 drinks/week</div>
-        <div class="drink-btns">
-          <button class="orange" onclick="addDrink()">+ Drink</button>
-          <button class="secondary" onclick="removeDrink()">Undo</button>
+    <!-- OURA CARD -->
+    <div class="card" id="ouraCard">
+      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
+        <span>💍 Oura Ring — Today</span>
+        <button class="sm secondary" onclick="fetchOura()">↻ Refresh</button>
+      </div>
+      <div id="ouraStatus" style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:10px;">Loading...</div>
+      <div id="ouraData" style="display:none;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+          <div class="oura-metric"><div class="om-val" id="oura-readiness">—</div><div class="om-lbl">Readiness</div></div>
+          <div class="oura-metric"><div class="om-val" id="oura-sleep">—</div><div class="om-lbl">Sleep Score</div></div>
+          <div class="oura-metric"><div class="om-val" id="oura-hrv">—</div><div class="om-lbl">HRV</div></div>
+          <div class="oura-metric"><div class="om-val" id="oura-hr">—</div><div class="om-lbl">Rest HR</div></div>
+          <div class="oura-metric"><div class="om-val" id="oura-sleep-hrs">—</div><div class="om-lbl">Sleep Hrs</div></div>
+          <div class="oura-metric"><div class="om-val" id="oura-calories">—</div><div class="om-lbl">Active Cal</div></div>
         </div>
-        <div class="week-days-grid" id="weekDaysGrid"></div>
+        <div id="ouraAdvice" style="font-size:13px;padding:10px 12px;border-radius:10px;line-height:1.5;margin-bottom:8px;"></div>
+        <button class="sm blue" style="width:100%" onclick="applyOuraBurn()">⬆️ Apply Active Calories to Burn Tracker</button>
       </div>
     </div>
 
+    <!-- WEIGHT CARD -->
+    <div class="card">
+      <div class="card-title">⚖️ Weight</div>
+      <div class="weight-display">
+        <div class="weight-num" id="currentWeight">230</div>
+        <div class="weight-unit">lbs</div>
+      </div>
+      <div class="weight-goal">Goal: 200 lbs — <span class="lbs-left" id="lbsLeft">30 lbs to go</span></div>
+      <div class="row-input">
+        <input type="number" id="weightInput" placeholder="Log today's weight..." step="0.1" min="150" max="400">
+        <button onclick="logWeight()">Log</button>
+      </div>
+    </div>
+
+    <!-- CALORIE CARD -->
     <div class="card">
       <div class="card-title">🔥 Calorie Deficit</div>
       <div class="calorie-ring-wrap">
@@ -355,27 +366,19 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
       <p class="note">Resets automatically each morning. Net = 2,100 + burned − eaten.</p>
     </div>
 
-    <!-- OURA CARD -->
-    <div class="card" id="ouraCard">
-      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
-        <span>💍 Oura Ring — Today</span>
-        <button class="sm secondary" onclick="fetchOura()">↻ Refresh</button>
+    <!-- ALCOHOL CARD -->
+    <div class="card">
+      <div class="card-title">🍺 Alcohol This Week</div>
+      <div class="drinks-display" id="drinksCount">0</div>
+      <div class="drinks-sub">Target: ≤4 drinks/week</div>
+      <div class="drink-btns">
+        <button class="orange" onclick="addDrink()">+ Drink</button>
+        <button class="secondary" onclick="removeDrink()">Undo</button>
       </div>
-      <div id="ouraStatus" style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:10px;">Loading...</div>
-      <div id="ouraData" style="display:none;">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
-          <div class="oura-metric"><div class="om-val" id="oura-readiness">—</div><div class="om-lbl">Readiness</div></div>
-          <div class="oura-metric"><div class="om-val" id="oura-sleep">—</div><div class="om-lbl">Sleep Score</div></div>
-          <div class="oura-metric"><div class="om-val" id="oura-hrv">—</div><div class="om-lbl">HRV</div></div>
-          <div class="oura-metric"><div class="om-val" id="oura-hr">—</div><div class="om-lbl">Rest HR</div></div>
-          <div class="oura-metric"><div class="om-val" id="oura-sleep-hrs">—</div><div class="om-lbl">Sleep Hrs</div></div>
-          <div class="oura-metric"><div class="om-val" id="oura-calories">—</div><div class="om-lbl">Active Cal</div></div>
-        </div>
-        <div id="ouraAdvice" style="font-size:13px;padding:10px 12px;border-radius:10px;line-height:1.5;margin-bottom:8px;"></div>
-        <button class="sm blue" style="width:100%" onclick="applyOuraBurn()">⬆️ Apply Active Calories to Burn Tracker</button>
-      </div>
+      <div class="week-days-grid" id="weekDaysGrid"></div>
     </div>
 
+    <!-- POINTS CARD -->
     <div class="card">
       <div class="card-title">⭐ Daily Points</div>
       <div class="points-header">
@@ -467,8 +470,12 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
   <div class="page" id="page-history">
     <div class="section-title">History</div>
     <div class="card">
-      <div class="card-title">📈 Weight Log</div>
-      <div class="history-list" id="weightHistory"><div class="empty-state">No entries yet — start logging!</div></div>
+      <div class="card-title">📈 Weight Progress</div>
+      <div id="weightChartWrap" style="display:none;margin-bottom:12px;">
+        <canvas id="weightChart" style="width:100%;height:180px;display:block;"></canvas>
+      </div>
+      <div id="weightChartEmpty" class="empty-state">No entries yet — start logging!</div>
+      <div class="history-list" id="weightHistory" style="margin-top:8px;"></div>
     </div>
     <div class="card">
       <div class="card-title">📊 Progress Summary</div>
@@ -840,13 +847,26 @@ function renderAlcohol(){
     const dateStr=getWeekDateStr(i);
     const cnt=state.weekDrinks[dateStr]||0;
     const isToday=i===todayDow;
+    const isPast=new Date(dateStr)<=new Date();
     const hasDrinks=cnt>0;
-    const afDay=!hasDrinks && new Date(dateStr) <= new Date();
-    return `<div class="week-day-dot">
-      <div class="day-dot ${hasDrinks?'has-drinks':''} ${afDay?'alcohol-free':''} ${isToday?'today-dot':''}">${hasDrinks?cnt:afDay?'✓':''}</div>
+    const afDay=!hasDrinks&&isPast;
+    return `<div class="week-day-dot" onclick="${isPast?`editDayDrinks('${dateStr}')`:''}" style="${isPast?'cursor:pointer;':''}">
+      <div class="day-dot ${hasDrinks?'has-drinks':''} ${afDay?'alcohol-free':''} ${isToday?'today-dot':''}" 
+        title="${isPast?'Tap to edit':'Future'}">${hasDrinks?cnt:afDay?'✓':''}</div>
       <span>${d}</span>
     </div>`;
   }).join('');
+}
+function editDayDrinks(dateStr){
+  const cur=state.weekDrinks[dateStr]||0;
+  const day=new Date(dateStr).toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+  const input=prompt(`${day}\nHow many drinks? (current: ${cur})`,cur);
+  if(input===null) return; // cancelled
+  const val=parseInt(input);
+  if(isNaN(val)||val<0){showToast('Enter a valid number');return;}
+  state.weekDrinks[dateStr]=val;
+  save(); renderAlcohol();
+  showToast(`${day}: ${val} drink${val===1?'':'s'} logged`);
 }
 function addDrink(){
   const today=todayStr();
@@ -1080,10 +1100,118 @@ function saveExWeight(id,dateKey){
 // ── HISTORY ──────────────────────────────────────────────────────────────────
 function renderHistory(){
   const wh=document.getElementById('weightHistory');
+  const chartWrap=document.getElementById('weightChartWrap');
+  const chartEmpty=document.getElementById('weightChartEmpty');
+
   if(!state.weightHistory||!state.weightHistory.length){
-    wh.innerHTML='<div class="empty-state">No entries yet — start logging!</div>';
+    wh.innerHTML='';
+    chartWrap.style.display='none';
+    chartEmpty.style.display='block';
   } else {
-    wh.innerHTML=state.weightHistory.slice(0,20).map(e=>{
+    chartEmpty.style.display='none';
+    chartWrap.style.display='block';
+
+    // Draw line chart
+    const entries=[...state.weightHistory].reverse(); // oldest first
+    const canvas=document.getElementById('weightChart');
+    const dpr=window.devicePixelRatio||1;
+    const W=canvas.parentElement.offsetWidth||300;
+    const H=180;
+    canvas.width=W*dpr; canvas.height=H*dpr;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    const ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+
+    const weights=entries.map(e=>e.weight);
+    const minW=Math.min(...weights)-1;
+    const maxW=Math.max(...weights)+1;
+    const pad={t:16,r:16,b:28,l:44};
+    const cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+
+    const xPos=i=>(entries.length<2?cW/2:i/(entries.length-1)*cW)+pad.l;
+    const yPos=w=>pad.t+cH-(w-minW)/(maxW-minW)*cH;
+
+    // Background
+    ctx.fillStyle='#f8f8f4';
+    ctx.fillRect(0,0,W,H);
+
+    // Goal line
+    const goalY=yPos(state.goalWeight);
+    if(goalY>=pad.t && goalY<=H-pad.b){
+      ctx.strokeStyle='rgba(42,125,79,0.2)';
+      ctx.setLineDash([4,4]);
+      ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(pad.l,goalY); ctx.lineTo(W-pad.r,goalY); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='rgba(42,125,79,0.5)';
+      ctx.font='10px DM Mono,monospace';
+      ctx.fillText('Goal',pad.l+4,goalY-3);
+    }
+
+    // Y axis labels
+    ctx.fillStyle='#aaa';
+    ctx.font='10px DM Mono,monospace';
+    ctx.textAlign='right';
+    [minW+1, (minW+maxW)/2, maxW-1].forEach(v=>{
+      const y=yPos(v);
+      ctx.fillText(Math.round(v),pad.l-4,y+3);
+    });
+
+    // X axis labels (first, middle, last)
+    ctx.textAlign='center';
+    const labelIdxs=[0, Math.floor((entries.length-1)/2), entries.length-1].filter((v,i,a)=>a.indexOf(v)===i);
+    labelIdxs.forEach(i=>{
+      const d=entries[i].date.slice(5); // MM-DD
+      ctx.fillText(d,xPos(i),H-pad.b+12);
+    });
+
+    // Gradient fill under line
+    const grad=ctx.createLinearGradient(0,pad.t,0,H-pad.b);
+    grad.addColorStop(0,'rgba(224,92,26,0.18)');
+    grad.addColorStop(1,'rgba(224,92,26,0)');
+    ctx.beginPath();
+    entries.forEach((e,i)=>{
+      i===0?ctx.moveTo(xPos(i),yPos(e.weight)):ctx.lineTo(xPos(i),yPos(e.weight));
+    });
+    ctx.lineTo(xPos(entries.length-1),H-pad.b);
+    ctx.lineTo(xPos(0),H-pad.b);
+    ctx.closePath();
+    ctx.fillStyle=grad;
+    ctx.fill();
+
+    // Line
+    ctx.strokeStyle='var(--accent2)';
+    ctx.lineWidth=2.5;
+    ctx.lineJoin='round';
+    ctx.beginPath();
+    entries.forEach((e,i)=>{
+      i===0?ctx.moveTo(xPos(i),yPos(e.weight)):ctx.lineTo(xPos(i),yPos(e.weight));
+    });
+    ctx.stroke();
+
+    // Dots
+    entries.forEach((e,i)=>{
+      const isLatest=i===entries.length-1;
+      ctx.beginPath();
+      ctx.arc(xPos(i),yPos(e.weight),isLatest?5:3,0,Math.PI*2);
+      ctx.fillStyle=isLatest?'var(--accent2)':'#fff';
+      ctx.strokeStyle='var(--accent2)';
+      ctx.lineWidth=2;
+      ctx.fill(); ctx.stroke();
+    });
+
+    // Latest weight label
+    if(entries.length>0){
+      const last=entries[entries.length-1];
+      const lx=xPos(entries.length-1), ly=yPos(last.weight);
+      ctx.fillStyle='var(--accent2)';
+      ctx.font='bold 11px DM Sans,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(last.weight+' lbs', lx, ly-10);
+    }
+
+    // Log table below chart
+    wh.innerHTML=state.weightHistory.slice(0,10).map(e=>{
       const d=e.weight-e.prev, ds=d===0?'—':(d>0?`+${d.toFixed(1)}`:d.toFixed(1));
       return `<div class="history-item">
         <span class="h-date">${e.date}</span>
