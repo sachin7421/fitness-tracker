@@ -1209,44 +1209,43 @@ async function fetchOura() {
   dataEl.style.display = 'none';
 
   const today = todayStr();
-  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
-  const yStr = yesterday.toISOString().split('T')[0];
 
   try {
     const headers = {'x-oura-token': OURA_TOKEN};
 
-    // Fetch readiness, sleep, daily activity in parallel
     const proxyFetch = (endpoint, start, end) =>
       fetch(`${OURA_PROXY}?endpoint=${endpoint}&start=${start}&end=${end}`, {headers});
 
+    // Fetch today only — no yesterday fallback, blank is better than stale
     const [readRes, sleepRes, actRes] = await Promise.all([
       proxyFetch('daily_readiness', today, today),
       proxyFetch('daily_sleep', today, today),
       proxyFetch('daily_activity', today, today),
     ]);
 
-    const [readData, sleepData, actData] = await Promise.all([readRes.json(), sleepRes.json(), actRes.json()]);
+    const [readData, sleepData, actData] = await Promise.all([
+      readRes.json(), sleepRes.json(), actRes.json()
+    ]);
 
-    // Try yesterday if today not yet populated
     const readiness = readData.data?.[0] || null;
     const sleep = sleepData.data?.[0] || null;
     const activity = actData.data?.[0] || null;
 
-    // If today empty, try yesterday for sleep (ring syncs after waking)
-    let sleepFinal = sleep;
-    if (!sleepFinal) {
-      const yRes = await proxyFetch('daily_sleep', yStr, yStr);
-      const yData = await yRes.json();
-      sleepFinal = yData.data?.[0] || null;
-    }
-
-    // Parse values
+    // Parse correct fields from Oura v2 API
     const readScore = readiness?.score ?? null;
-    const sleepScore = sleepFinal?.score ?? null;
-    const hrv = readiness?.contributors?.hrv_balance ?? sleepFinal?.contributors?.hrv_balance ?? null;
-    const restHR = sleepFinal?.lowest_heart_rate ?? null;
-    const sleepSecs = sleepFinal?.total_sleep_duration ?? null;
-    const sleepHrs = sleepSecs ? (sleepSecs/3600).toFixed(1) : null;
+    const sleepScore = sleep?.score ?? null;
+
+    // HRV: average_hrv in ms from sleep endpoint (not the contributor score)
+    const hrv = sleep?.average_hrv ?? null;
+
+    // Resting HR: average_heart_rate from sleep endpoint
+    const restHR = sleep?.average_heart_rate ?? null;
+
+    // Sleep duration: total_sleep_duration in seconds
+    const sleepSecs = sleep?.total_sleep_duration ?? null;
+    const sleepHrs = sleepSecs ? (sleepSecs / 3600).toFixed(1) : null;
+
+    // Active calories from daily activity
     const activeCal = activity?.active_calories ?? null;
     ouraActiveCal = activeCal || 0;
 
@@ -1265,9 +1264,9 @@ async function fetchOura() {
 
     setMetric('oura-readiness', readScore, scoreColor(readScore));
     setMetric('oura-sleep', sleepScore, scoreColor(sleepScore));
-    setMetric('oura-hrv', hrv ? Math.round(hrv) : null, scoreColor(hrv, 30, 50));
-    setMetric('oura-hr', restHR, restHR ? (restHR<=55?'oura-high':restHR<=65?'oura-mid':'oura-low') : '');
-    setMetric('oura-sleep-hrs', sleepHrs, sleepHrs ? (parseFloat(sleepHrs)>=7?'oura-high':parseFloat(sleepHrs)>=6?'oura-mid':'oura-low') : '');
+    setMetric('oura-hrv', hrv ? Math.round(hrv) + 'ms' : null, scoreColor(hrv, 30, 60));
+    setMetric('oura-hr', restHR ? Math.round(restHR) + 'bpm' : null, restHR ? (restHR<=58?'oura-high':restHR<=68?'oura-mid':'oura-low') : '');
+    setMetric('oura-sleep-hrs', sleepHrs ? sleepHrs + 'h' : null, sleepHrs ? (parseFloat(sleepHrs)>=7?'oura-high':parseFloat(sleepHrs)>=6?'oura-mid':'oura-low') : '');
     setMetric('oura-calories', activeCal, '');
 
     // Training advice based on readiness
@@ -1296,7 +1295,23 @@ async function fetchOura() {
     }
 
     dataEl.style.display = 'block';
-    statusEl.textContent = 'Updated: ' + new Date().toLocaleTimeString();
+    const synced = [
+      readScore !== null ? 'Readiness' : null,
+      sleepScore !== null ? 'Sleep' : null,
+      hrv !== null ? 'HRV' : null,
+      restHR !== null ? 'HR' : null,
+      activeCal !== null ? 'Calories' : null,
+    ].filter(Boolean);
+    const pending = [
+      readScore === null ? 'Readiness' : null,
+      sleepScore === null ? 'Sleep' : null,
+      hrv === null ? 'HRV' : null,
+      restHR === null ? 'Rest HR' : null,
+      activeCal === null ? 'Active Cal' : null,
+    ].filter(Boolean);
+    statusEl.textContent = synced.length
+      ? 'Synced: ' + synced.join(', ') + (pending.length ? ' · Pending: ' + pending.join(', ') : '')
+      : 'Ring not yet synced for today — check back after morning sync';
 
     // Save to state for persistence
     state.ouraToday = {readScore, sleepScore, hrv, restHR, sleepHrs, activeCal, ts: Date.now()};
