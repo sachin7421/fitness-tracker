@@ -1006,7 +1006,10 @@ function renderAlcohol(){
     const dateStr=getWeekDateStr(i);
     const cnt=state.weekDrinks[dateStr]||0;
     const isToday=i===todayDow;
-    const isPast=new Date(dateStr)<=new Date();
+    // Parse date locally to avoid UTC shift in comparison
+    const [dy,dm,dd]=dateStr.split('-').map(Number);
+    const dateLocal=new Date(dy,dm-1,dd);
+    const isPast=dateLocal<=new Date();
     const hasDrinks=cnt>0;
     const afDay=!hasDrinks&&isPast;
     return `<div class="week-day-dot" onclick="${isPast?`editDayDrinks('${dateStr}')`:''}" style="${isPast?'cursor:pointer;':''}">
@@ -1018,7 +1021,10 @@ function renderAlcohol(){
 }
 function editDayDrinks(dateStr){
   const cur=state.weekDrinks[dateStr]||0;
-  const day=new Date(dateStr).toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+  // Parse date parts directly to avoid UTC timezone shift
+  const [y,m,d]=dateStr.split('-').map(Number);
+  const localDate=new Date(y,m-1,d); // month is 0-indexed, no timezone shift
+  const day=localDate.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
   const input=prompt(`${day}\nHow many drinks? (current: ${cur})`,cur);
   if(input===null) return; // cancelled
   const val=parseInt(input);
