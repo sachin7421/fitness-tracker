@@ -1228,45 +1228,29 @@ async function fetchOura() {
     ]);
 
     const readiness = readData.data?.[0] || null;
-    const sleep = sleepData.data?.[0] || null;
+
+    // Pick the best long_sleep record — multiple records per day (naps etc), want main sleep
+    const sleepRecords = sleepData.data || [];
+    const sleep = sleepRecords
+      .filter(s => s.type === 'long_sleep' && s.average_hrv !== null)
+      .sort((a, b) => (b.total_sleep_duration || 0) - (a.total_sleep_duration || 0))[0]
+      || sleepRecords
+        .filter(s => s.type === 'long_sleep')
+        .sort((a, b) => (b.total_sleep_duration || 0) - (a.total_sleep_duration || 0))[0]
+      || null;
+
     const activity = actData.data?.[0] || null;
 
-    // DEBUG — log raw responses to browser console
-    console.log('=== OURA DEBUG ===');
-    console.log('Readiness raw:', JSON.stringify(readiness, null, 2));
-    console.log('Sleep raw:', JSON.stringify(sleep, null, 2));
-    console.log('Activity raw:', JSON.stringify(activity, null, 2));
-
-    // Parse correct fields from Oura v2 API
+    // Parse correct Oura v2 fields
     const readScore = readiness?.score ?? null;
     const sleepScore = sleep?.score ?? null;
-
-    // HRV: try multiple possible field locations
-    const hrv = sleep?.average_hrv
-      ?? sleep?.hrv?.items?.[0]
-      ?? readiness?.contributors?.hrv_balance
-      ?? null;
-
-    // Resting HR: try multiple possible field locations  
-    const restHR = sleep?.average_heart_rate
-      ?? sleep?.lowest_heart_rate
-      ?? sleep?.heart_rate?.avg
-      ?? null;
-
-    // Sleep duration: total_sleep_duration in seconds
-    const sleepSecs = sleep?.total_sleep_duration
-      ?? sleep?.time_in_bed
-      ?? null;
+    const hrv = sleep?.average_hrv ?? null;
+    const restHR = sleep?.lowest_heart_rate ?? null;
+    const sleepSecs = sleep?.total_sleep_duration ?? null;
     const sleepHrs = sleepSecs ? (sleepSecs / 3600).toFixed(1) : null;
-
-    // Active calories — try both field names Oura has used
-    const activeCal = activity?.active_calories
-      ?? activity?.cal_active
-      ?? null;
+    const activeCal = activity?.active_calories ?? null;
     ouraActiveCal = activeCal || 0;
 
-    // Show debug in status so you can see without opening console
-    statusEl.textContent = 'Debug — Sleep fields: ' + Object.keys(sleep || {}).join(', ');
 
     // Render metrics with color coding
     function scoreColor(v, low=60, high=80) {
