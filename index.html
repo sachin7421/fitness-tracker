@@ -1199,6 +1199,7 @@ if(action === 'workout') {
 
 // ── OURA ─────────────────────────────────────────────────────────────────────
 const OURA_TOKEN = 'S3YFRUR7OBIXTXCAX3PUQ3UON4GB3O4W';
+const OURA_PROXY = 'https://gymiq-oura.sachin8.workers.dev/';
 let ouraActiveCal = 0;
 
 async function fetchOura() {
@@ -1212,13 +1213,16 @@ async function fetchOura() {
   const yStr = yesterday.toISOString().split('T')[0];
 
   try {
-    const headers = {'Authorization': 'Bearer ' + OURA_TOKEN};
+    const headers = {'x-oura-token': OURA_TOKEN};
 
     // Fetch readiness, sleep, daily activity in parallel
+    const proxyFetch = (endpoint, start, end) =>
+      fetch(`${OURA_PROXY}?endpoint=${endpoint}&start=${start}&end=${end}`, {headers});
+
     const [readRes, sleepRes, actRes] = await Promise.all([
-      fetch(`https://api.ouraring.com/v2/usercollection/daily_readiness?start_date=${today}&end_date=${today}`, {headers}),
-      fetch(`https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=${today}&end_date=${today}`, {headers}),
-      fetch(`https://api.ouraring.com/v2/usercollection/daily_activity?start_date=${today}&end_date=${today}`, {headers}),
+      proxyFetch('daily_readiness', today, today),
+      proxyFetch('daily_sleep', today, today),
+      proxyFetch('daily_activity', today, today),
     ]);
 
     const [readData, sleepData, actData] = await Promise.all([readRes.json(), sleepRes.json(), actRes.json()]);
@@ -1231,7 +1235,7 @@ async function fetchOura() {
     // If today empty, try yesterday for sleep (ring syncs after waking)
     let sleepFinal = sleep;
     if (!sleepFinal) {
-      const yRes = await fetch(`https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=${yStr}&end_date=${yStr}`, {headers});
+      const yRes = await proxyFetch('daily_sleep', yStr, yStr);
       const yData = await yRes.json();
       sleepFinal = yData.data?.[0] || null;
     }
