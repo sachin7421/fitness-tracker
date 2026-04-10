@@ -1221,14 +1221,15 @@ async function fetchOura() {
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
     const startDate = threeDaysAgo.toISOString().split('T')[0];
 
-    const [readRes, sleepRes, actRes] = await Promise.all([
+    const [readRes, sleepRes, dailySleepRes, actRes] = await Promise.all([
       proxyFetch('daily_readiness', today, today),
       proxyFetch('sleep', startDate, today),
+      proxyFetch('daily_sleep', startDate, today),
       proxyFetch('daily_activity', startDate, today),
     ]);
 
-    const [readData, sleepData, actData] = await Promise.all([
-      readRes.json(), sleepRes.json(), actRes.json()
+    const [readData, sleepData, dailySleepData, actData] = await Promise.all([
+      readRes.json(), sleepRes.json(), dailySleepRes.json(), actRes.json()
     ]);
 
     const readiness = readData.data?.[0] || null;
@@ -1243,19 +1244,26 @@ async function fetchOura() {
         .sort((a, b) => new Date(b.bedtime_end) - new Date(a.bedtime_end))[0]
       || null;
 
-    // Activity: prefer today, fall back to most recent
-    const actRecords = (actData.data || []).sort((a, b) => new Date(b.day) - new Date(a.day));
-    const activity = actRecords[0] || null;
+    // Match daily_sleep score to same day as our sleep record
+    const sleepDay = sleep?.day || null;
+    const dailySleepRecord = sleepDay
+      ? (dailySleepData.data || []).find(s => s.day === sleepDay) || null
+      : (dailySleepData.data || []).sort((a,b) => new Date(b.day)-new Date(a.day))[0] || null;
 
-    // Temporary debug — show in status bar
+    // Activity: prefer today's live data, show blank if not yet available
+    // Don't fall back to yesterday — stale calorie data is misleading
+    const actRecords = (actData.data || []);
+    const activity = actRecords.find(a => a.day === today) || null;
+
+    // Show which night's data is displayed
     const debugMsg = sleep
-      ? `Found: ${sleep.day} | HRV:${sleep.average_hrv} | HR:${sleep.lowest_heart_rate} | Sleep:${sleep.total_sleep_duration}s`
-      : `No long_sleep found in ${sleepRecords.length} records`;
+      ? `Last night: ${sleep.day} | ${(sleep.total_sleep_duration/3600).toFixed(1)}h sleep`
+      : 'Waiting for ring sync...';
     statusEl.textContent = debugMsg;
 
     // Parse correct Oura v2 fields
     const readScore = readiness?.score ?? null;
-    const sleepScore = sleep?.score ?? null;
+    const sleepScore = dailySleepRecord?.score ?? sleep?.score ?? null;
     const hrv = sleep?.average_hrv ?? null;
     const restHR = sleep?.lowest_heart_rate ?? null;
     const sleepSecs = sleep?.total_sleep_duration ?? null;
