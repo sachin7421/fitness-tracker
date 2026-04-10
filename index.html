@@ -962,11 +962,12 @@ function localDateStr(d){
 }
 function todayStr(){return localDateStr();}
 function daysSinceStart(){return Math.max(1,Math.round((new Date()-new Date(state.startDate))/86400000)+1);}
-function getWeekStart(){
-  const d=new Date(); d.setDate(d.getDate()-d.getDay()); return d;
-}
 function getWeekDateStr(dow){
-  const d=getWeekStart(); d.setDate(d.getDate()+dow); return localDateStr(d);
+  // Create a fresh Date each time — no shared object mutation
+  const now=new Date();
+  const sunday=new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay());
+  const target=new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate()+dow);
+  return localDateStr(target);
 }
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
