@@ -2826,7 +2826,7 @@ function rerunSetup() {
 // ── SUPABASE AUTH ─────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://pgzbwmwkchpvqvftfczm.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnemJ3bXdrY2hwdnF2ZnRmY3ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MDI0OTIsImV4cCI6MjA5MTQ3ODQ5Mn0.RMTIDqXQXWTxFe0cUJChA1Ods-DmVs_XqrQoMfoZbHM';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
 
@@ -2876,7 +2876,7 @@ function toggleAuthMode() {
 }
 
 async function signInWithGoogle() {
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { error } = await sbClient.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: window.location.href }
   });
@@ -2889,7 +2889,7 @@ async function signInWithEmail() {
   if(!email || !password) { showAuthError('Please enter email and password'); return; }
   const btn = event.target;
   btn.textContent = 'SIGNING IN...'; btn.disabled = true;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await sbClient.auth.signInWithPassword({ email, password });
   btn.textContent = 'SIGN IN'; btn.disabled = false;
   if(error) showAuthError(error.message);
 }
@@ -2901,7 +2901,7 @@ async function signUpWithEmail() {
   if(password.length < 6) { showAuthError('Password must be at least 6 characters'); return; }
   const btn = event.target;
   btn.textContent = 'CREATING...'; btn.disabled = true;
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await sbClient.auth.signUp({ email, password });
   btn.textContent = 'CREATE ACCOUNT'; btn.disabled = false;
   if(error) { showAuthError(error.message); return; }
   if(data.user && !data.session) {
@@ -2910,7 +2910,7 @@ async function signUpWithEmail() {
 }
 
 async function signOut() {
-  await supabase.auth.signOut();
+  await sbClient.auth.signOut();
   currentUser = null;
   state = {...DEFAULT};
   showAuthOverlay();
@@ -2939,7 +2939,7 @@ function updateUserPill(user) {
 // ── SUPABASE DATA SYNC ────────────────────────────────────────────────────────
 async function loadFromSupabase(userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await sbClient
       .from('user_data')
       .select('data')
       .eq('id', userId)
@@ -2963,7 +2963,7 @@ async function saveToSupabase() {
   if(!currentUser) return;
   try {
     const stateToSave = {...state, generatedWorkouts: null};
-    await supabase
+    await sbClient
       .from('user_data')
       .upsert({ id: currentUser.id, data: stateToSave, updated_at: new Date().toISOString() });
   } catch(e) {
@@ -3039,7 +3039,7 @@ async function initApp() {
 
   try {
     // Check current session first
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const { data: { session }, error } = await sbClient.auth.getSession();
 
     if(error) {
       console.error('Session error:', error);
@@ -3054,7 +3054,7 @@ async function initApp() {
     }
 
     // Listen for future auth state changes (Google OAuth redirect etc)
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    sbClient.auth.onAuthStateChange(async (event, session) => {
       console.log('Auth event:', event);
       if(event === 'SIGNED_IN') {
         await handleSession(session);
