@@ -1133,7 +1133,7 @@ const WORKOUTS={
 // ── STATE ────────────────────────────────────────────────────────────────────
 const DEFAULT={
   startDate:(()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;})(),
-  currentWeight:230,startWeight:230,goalWeight:200,
+  currentWeight:0,startWeight:0,goalWeight:0,
   weightHistory:[],
   weekDrinks:{}, // {dateStr: count}
   calories:0,burned:0,calorieTarget:2100,
@@ -1156,6 +1156,9 @@ const DEFAULT={
   challengeAwards:{},
   earnedBadges:{},
   weeklyHabits:{},
+  hasOura:false,
+  ouraToken:null,
+  wearable:'none',
 };
 
 let state=JSON.parse(localStorage.getItem('fitnessState')||'null')||{...DEFAULT};
@@ -1388,6 +1391,9 @@ function mergeStates(local, cloud){
   } else {
     merged.lastSync=local.lastSync||cloud.lastSync||null;
   }
+
+  // Never restore generatedWorkouts from cloud — regenerate from equipment instead
+  merged.generatedWorkouts = null;
 
   return merged;
 }
@@ -1671,7 +1677,9 @@ function renderWeekWorkoutView(){
   // Validate generatedWorkouts — fall back to WORKOUTS if empty/broken
   let workoutSource = WORKOUTS;
   if(state.generatedWorkouts) {
-    const sample = state.generatedWorkouts[1] || state.generatedWorkouts[0];
+    // Keys may be strings ("1") or numbers (1) depending on how they were stored
+    const sample = state.generatedWorkouts[1] || state.generatedWorkouts["1"]
+                || state.generatedWorkouts[0] || state.generatedWorkouts["0"];
     const hasExercises = sample && ((sample.A||[]).length > 2);
     workoutSource = hasExercises ? state.generatedWorkouts : WORKOUTS;
   }
