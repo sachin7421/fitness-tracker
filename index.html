@@ -256,13 +256,106 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
 .backup-row{display:flex;gap:8px;margin-bottom:8px;}
 .backup-row button{flex:1;}
 .empty-state{color:var(--muted);font-size:13px;text-align:center;padding:20px;}
+
+/* LEVEL / GAMIFICATION */
+.level-banner{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;margin-bottom:4px;}
+.level-icon{font-size:32px;flex-shrink:0;}
+.level-info{flex:1;}
+.level-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;line-height:1;}
+.level-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px;}
+.level-xp-bar{height:6px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);margin-top:8px;overflow:hidden;}
+.level-xp-fill{height:100%;border-radius:100px;transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1);}
+
+.challenge-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;}
+.challenge-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.challenge-icon{font-size:20px;}
+.challenge-title{font-size:13px;font-weight:600;flex:1;}
+.challenge-pts{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;}
+.challenge-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.challenge-progress{display:flex;align-items:center;gap:8px;}
+.challenge-bar-bg{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden;}
+.challenge-bar-fill{height:100%;border-radius:100px;background:var(--accent);transition:width 0.5s ease;}
+.challenge-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.challenge-card.completed{border-color:var(--accent);background:var(--accent-light);}
+.challenge-card.completed .challenge-title{color:var(--accent);}
+
+.badge-collection{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;min-width:64px;}
+.badge-item.earned{border-color:var(--accent);background:var(--accent-light);}
+.badge-item .bi-icon{font-size:24px;}
+.badge-item .bi-name{font-size:9px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--muted);text-align:center;text-transform:uppercase;}
+.badge-item.earned .bi-name{color:var(--accent);}
+.badge-item.locked{opacity:0.35;}
+
+.week-grade{text-align:center;padding:16px;}
+.week-grade .grade{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;}
+.week-grade .grade-label{font-size:12px;font-family:'DM Mono',monospace;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.week-day-scores{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px;}
+.wds-cell{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.wds-bar-bg{width:100%;height:40px;background:var(--surface2);border-radius:6px;border:1px solid var(--border);display:flex;align-items:flex-end;overflow:hidden;}
+.wds-bar-fill{width:100%;border-radius:6px;transition:height 0.5s ease;}
+.wds-label{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);}
+.wds-pts{font-size:10px;font-family:'DM Mono',monospace;font-weight:600;}
 .oura-metric{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.ex-cue{font-size:12px;color:var(--muted);line-height:1.5;padding:8px 14px 2px;border-top:1px solid var(--border);}
+.ex-cue strong{color:var(--text2);font-weight:600;}
+.ex-actions{display:flex;gap:6px;padding:8px 14px 10px;align-items:center;}
+.yt-btn{display:inline-flex;align-items:center;gap:4px;background:#ff0000;color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;}
+.yt-btn:hover{background:#cc0000;}
 .om-val{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--text);}
 .om-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
 .oura-high{color:var(--success);}
 .oura-mid{color:var(--warn);}
 .oura-low{color:var(--danger);}
 
+
+/* ── ONBOARDING ──────────────────────────────────────────────────────────── */
+.onboarding-overlay{position:fixed;inset:0;background:var(--bg);z-index:500;overflow-y:auto;padding-bottom:40px;}
+.onboarding-wrap{max-width:480px;margin:0 auto;padding:24px 20px;}
+.ob-step{display:none;}
+.ob-step.active{display:block;}
+.ob-logo{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--accent);letter-spacing:2px;margin-bottom:4px;}
+.ob-tagline{font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:2px;margin-bottom:32px;}
+.ob-title{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);margin-bottom:6px;letter-spacing:1px;}
+.ob-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+.ob-field{margin-bottom:16px;}
+.ob-label{font-size:12px;font-family:'DM Mono',monospace;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;display:block;}
+.ob-input{width:100%;background:var(--surface);border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:16px;outline:none;transition:border-color 0.2s;}
+.ob-input:focus{border-color:var(--accent);}
+.ob-input::placeholder{color:var(--muted);}
+.ob-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ob-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:12px;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;cursor:pointer;margin-top:8px;transition:all 0.15s;}
+.ob-btn:active{transform:scale(0.98);}
+.ob-btn.secondary{background:transparent;color:var(--muted);border:1.5px solid var(--border);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;padding:10px;letter-spacing:0;}
+.ob-progress{display:flex;gap:6px;margin-bottom:28px;}
+.ob-dot{flex:1;height:4px;border-radius:100px;background:var(--border);transition:background 0.3s;}
+.ob-dot.done{background:var(--accent);}
+.ob-dot.active{background:var(--accent2);}
+
+/* EQUIPMENT GRID */
+.equip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px;}
+.equip-item{display:flex;align-items:center;gap:10px;padding:12px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.15s;font-size:13px;font-weight:500;}
+.equip-item:active{transform:scale(0.97);}
+.equip-item.selected{border-color:var(--accent);background:var(--accent-light);}
+.equip-item .eq-icon{font-size:20px;flex-shrink:0;}
+.equip-item .eq-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);margin-left:auto;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.15s;}
+.equip-item.selected .eq-check{background:var(--accent);border-color:var(--accent);color:#000;}
+
+/* DAYS SELECTOR */
+.days-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+.day-opt{padding:12px 4px;text-align:center;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.15s;font-family:'Bebas Neue',sans-serif;font-size:22px;background:var(--surface);}
+.day-opt.selected{border-color:var(--accent);background:var(--accent-light);color:var(--accent);}
+
+/* LEVEL SELECTOR */
+.level-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+.level-opt{padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.15s;background:var(--surface);}
+.level-opt.selected{border-color:var(--accent);background:var(--accent-light);}
+.level-opt .lo-title{font-size:14px;font-weight:700;margin-bottom:2px;}
+.level-opt .lo-desc{font-size:12px;color:var(--muted);}
+
+/* SETTINGS PAGE */
+.settings-section{margin-bottom:20px;}
+.settings-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -274,19 +367,179 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
   </div>
 </div>
 
+<!-- ── ONBOARDING OVERLAY ─────────────────────────────────────────────────── -->
+<div id="onboarding" class="onboarding-overlay" style="display:none;">
+  <div class="onboarding-wrap">
+
+    <!-- Progress dots -->
+    <div class="ob-progress">
+      <div class="ob-dot active" id="ob-dot-0"></div>
+      <div class="ob-dot" id="ob-dot-1"></div>
+      <div class="ob-dot" id="ob-dot-2"></div>
+      <div class="ob-dot" id="ob-dot-3"></div>
+      <div class="ob-dot" id="ob-dot-4"></div>
+      <div class="ob-dot" id="ob-dot-5"></div>
+    </div>
+
+    <!-- STEP 0: Welcome -->
+    <div class="ob-step active" id="ob-step-0">
+      <div class="ob-logo">GymIQ</div>
+      <div class="ob-tagline">YOUR GYM · YOUR DATA · YOUR PLAN</div>
+      <div class="ob-title">Let's build your personal plan.</div>
+      <div class="ob-sub">Answer 5 quick questions and GymIQ will create a custom workout program built around your exact equipment, schedule, and fitness level.</div>
+      <button class="ob-btn" onclick="obNext()">GET STARTED →</button>
+    </div>
+
+    <!-- STEP 1: Name + Weight -->
+    <div class="ob-step" id="ob-step-1">
+      <div class="ob-title">About You</div>
+      <div class="ob-sub">Set your starting point and weight goal.</div>
+      <div class="ob-field">
+        <label class="ob-label">Your First Name</label>
+        <input class="ob-input" id="ob-name" type="text" placeholder="e.g. Alex" maxlength="30">
+      </div>
+      <div class="ob-row">
+        <div class="ob-field">
+          <label class="ob-label">Current Weight (lbs)</label>
+          <input class="ob-input" id="ob-weight" type="number" placeholder="e.g. 210" min="100" max="500">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Goal Weight (lbs)</label>
+          <input class="ob-input" id="ob-goal" type="number" placeholder="e.g. 185" min="100" max="500">
+        </div>
+      </div>
+      <div class="ob-field">
+        <label class="ob-label">Weekly Calorie Target</label>
+        <input class="ob-input" id="ob-calories" type="number" placeholder="e.g. 2100 (500 cal deficit)" min="1200" max="4000" value="2100">
+      </div>
+      <button class="ob-btn" onclick="obNext()">NEXT →</button>
+      <button class="ob-btn secondary" onclick="obBack()" style="margin-top:8px;">← Back</button>
+    </div>
+
+    <!-- STEP 2: Equipment -->
+    <div class="ob-step" id="ob-step-2">
+      <div class="ob-title">Your Equipment</div>
+      <div class="ob-sub">Select everything you have access to. Be honest — GymIQ will build around exactly what you have.</div>
+      <div class="equip-grid" id="equipGrid"></div>
+      <button class="ob-btn" onclick="obNext()">NEXT →</button>
+      <button class="ob-btn secondary" onclick="obBack()" style="margin-top:8px;">← Back</button>
+    </div>
+
+    <!-- STEP 3: Training Days -->
+    <div class="ob-step" id="ob-step-3">
+      <div class="ob-title">Training Schedule</div>
+      <div class="ob-sub">How many days per week can you commit to training? Be realistic — consistency beats intensity.</div>
+      <div class="days-grid">
+        <div class="day-opt" onclick="obSelectDays(2)" id="od-2">2<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="obSelectDays(3)" id="od-3">3<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="obSelectDays(4)" id="od-4">4<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="obSelectDays(5)" id="od-5">5<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+      </div>
+      <button class="ob-btn" onclick="obNext()">NEXT →</button>
+      <button class="ob-btn secondary" onclick="obBack()" style="margin-top:8px;">← Back</button>
+    </div>
+
+    <!-- STEP 4: Fitness Level -->
+    <div class="ob-step" id="ob-step-4">
+      <div class="ob-title">Fitness Level</div>
+      <div class="ob-sub">This affects exercise selection, sets, reps, and rest periods.</div>
+      <div class="level-opts">
+        <div class="level-opt" onclick="obSelectLevel('beginner')" id="ol-beginner">
+          <div class="lo-title">🌱 Beginner</div>
+          <div class="lo-desc">Little or no recent training. Focus on form, lighter weights, more rest.</div>
+        </div>
+        <div class="level-opt" onclick="obSelectLevel('intermediate')" id="ol-intermediate">
+          <div class="lo-title">💪 Intermediate</div>
+          <div class="lo-desc">Some experience, comfortable with major movements. Moderate weight and volume.</div>
+        </div>
+        <div class="level-opt" onclick="obSelectLevel('advanced')" id="ol-advanced">
+          <div class="lo-title">🏆 Advanced</div>
+          <div class="lo-desc">Consistent training history. Higher volume, heavier loads, shorter rest.</div>
+        </div>
+      </div>
+      <button class="ob-btn" onclick="obNext()">NEXT →</button>
+      <button class="ob-btn secondary" onclick="obBack()" style="margin-top:8px;">← Back</button>
+    </div>
+
+    <!-- STEP 5: Oura Ring -->
+    <div class="ob-step" id="ob-step-5">
+      <div class="ob-title">Wearable Device</div>
+      <div class="ob-sub">Connect your wearable to automatically sync sleep, readiness, HRV, and active calories into GymIQ.</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+        <div class="level-opt" id="ow-oura" onclick="obSelectWearable('oura')">
+          <div class="lo-title">💍 Oura Ring</div>
+          <div class="lo-desc">Sync readiness, sleep score, HRV, resting HR, and active calories automatically.</div>
+        </div>
+        <div class="level-opt" id="ow-apple" onclick="obSelectWearable('apple')" style="opacity:0.6;">
+          <div class="lo-title">⌚ Apple Watch <span style="font-size:10px;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:1px;margin-left:6px;">COMING SOON</span></div>
+          <div class="lo-desc">Activity rings, heart rate, and workout data.</div>
+        </div>
+        <div class="level-opt" id="ow-garmin" onclick="obSelectWearable('garmin')" style="opacity:0.6;">
+          <div class="lo-title">🟢 Garmin <span style="font-size:10px;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:1px;margin-left:6px;">COMING SOON</span></div>
+          <div class="lo-desc">HRV, sleep tracking, and training load.</div>
+        </div>
+        <div class="level-opt" id="ow-whoop" onclick="obSelectWearable('whoop')" style="opacity:0.6;">
+          <div class="lo-title">🔴 Whoop <span style="font-size:10px;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:1px;margin-left:6px;">COMING SOON</span></div>
+          <div class="lo-desc">Strain, recovery, and sleep coaching.</div>
+        </div>
+        <div class="level-opt" id="ow-none" onclick="obSelectWearable('none')">
+          <div class="lo-title">🚫 No Wearable</div>
+          <div class="lo-desc">Skip this step — you can connect a device later in Settings.</div>
+        </div>
+      </div>
+
+      <!-- Oura token entry — shown when oura selected -->
+      <div id="ob-oura-connect" style="display:none;">
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;">
+          <div style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">How to get your token:</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.7;">
+            1. Go to <strong>cloud.ouraring.com</strong><br>
+            2. Profile → <strong>Personal Access Tokens</strong><br>
+            3. Click <strong>Create New Token</strong><br>
+            4. Name it "GymIQ", enable all scopes<br>
+            5. Copy and paste the token below
+          </div>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Oura Personal Access Token</label>
+          <input class="ob-input" id="ob-oura-token" type="text" placeholder="Paste your token here..." style="font-size:13px;font-family:'DM Mono',monospace;">
+        </div>
+        <button class="ob-btn secondary" id="ob-oura-test-btn" onclick="obTestOura()" style="margin-bottom:8px;">🔗 Test Connection</button>
+        <div id="ob-oura-status" style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);text-align:center;padding:6px;min-height:20px;"></div>
+      </div>
+
+      <button class="ob-btn" onclick="obFinish()">BUILD MY PLAN →</button>
+      <button class="ob-btn secondary" onclick="obBack()" style="margin-top:8px;">← Back</button>
+    </div>
+
+  </div>
+</div>
+
 <div class="app">
   <header>
     <div class="mission-label">// GymIQ</div>
     <h1>LOSE <span>30</span> LBS</h1>
-    <div style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:2px;margin-top:2px;">Your gym, your data, your plan</div>
-    <div class="header-stats">
+    <div id="levelBanner" class="level-banner" style="margin-top:12px;background:var(--surface2);border:1px solid var(--border);">
+      <div class="level-icon" id="levelIcon">🌱</div>
+      <div class="level-info">
+        <div class="level-title" id="levelTitle">ROOKIE</div>
+        <div class="level-sub" id="levelSub">0 total points — keep going!</div>
+        <div class="level-xp-bar"><div class="level-xp-fill" id="levelXpFill" style="width:0%;background:var(--accent);"></div></div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">THIS WEEK</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--accent);line-height:1;" id="weekGradeHeader">—</div>
+      </div>
+    </div>
+    <div class="header-stats" style="margin-top:10px;">
       <div class="stat-pill">🎯 Start: <span class="val">230 lbs</span></div>
       <div class="stat-pill">🏁 Goal: <span class="val">200 lbs</span></div>
       <div class="stat-pill">📅 <span class="val" id="daysIn">Day 1</span></div>
     </div>
-    <div style="margin-top:16px;" class="progress-section">
+    <div style="margin-top:12px;" class="progress-section">
       <div class="progress-header">
-        <span class="progress-label">Overall Progress</span>
+        <span class="progress-label">Weight Progress</span>
         <span class="progress-pct" id="progressPct">0%</span>
       </div>
       <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
@@ -376,6 +629,12 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
         <button class="secondary" onclick="removeDrink()">Undo</button>
       </div>
       <div class="week-days-grid" id="weekDaysGrid"></div>
+    </div>
+
+    <!-- WEEKLY CHALLENGE CARD -->
+    <div class="card" id="challengeCard">
+      <div class="card-title">🎯 Weekly Challenge</div>
+      <div id="challengeContent"></div>
     </div>
 
     <!-- POINTS CARD -->
@@ -497,6 +756,16 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
       <div id="lastSyncTime" style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px;font-family:'DM Mono',monospace;"></div>
     </div>
     <div class="card">
+      <div class="card-title">📅 Weekly Scorecard</div>
+      <div id="weeklyScorecard"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏅 Badge Collection</div>
+      <div id="badgeCollection" class="badge-collection"></div>
+    </div>
+
+    <div class="card">
       <div class="card-title">🗑️ Reset</div>
       <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Export a backup first.</p>
       <button class="danger" onclick="resetAll()">Reset All Data</button>
@@ -504,11 +773,74 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
   </div>
 </div>
 
+  <!-- SETTINGS PAGE -->
+  <div class="page" id="page-settings">
+    <div class="section-title">Settings</div>
+
+    <div class="card">
+      <div class="card-title">👤 Profile</div>
+      <div class="ob-field" style="margin-bottom:12px;">
+        <label class="ob-label">Your Name</label>
+        <input class="ob-input" id="set-name" type="text" placeholder="Your first name">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div>
+          <label class="ob-label">Start Weight (lbs)</label>
+          <input class="ob-input" id="set-start-weight" type="number" min="100" max="500">
+        </div>
+        <div>
+          <label class="ob-label">Goal Weight (lbs)</label>
+          <input class="ob-input" id="set-goal-weight" type="number" min="100" max="500">
+        </div>
+      </div>
+      <div class="ob-field" style="margin-bottom:12px;">
+        <label class="ob-label">Daily Calorie Target</label>
+        <input class="ob-input" id="set-calories" type="number" min="1200" max="4000">
+      </div>
+      <button onclick="saveProfile()" style="width:100%;">Save Profile</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏋️ Equipment</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Update your available equipment — workouts will regenerate automatically.</p>
+      <div class="equip-grid" id="settingsEquipGrid"></div>
+      <button onclick="saveEquipment()" style="width:100%;margin-top:8px;">Update Equipment & Regenerate Workouts</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 Training Schedule</div>
+      <div class="days-grid" style="margin-bottom:12px;" id="settingsDaysGrid">
+        <div class="day-opt" onclick="setDays(2)" id="sd-2">2<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="setDays(3)" id="sd-3">3<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="setDays(4)" id="sd-4">4<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+        <div class="day-opt" onclick="setDays(5)" id="sd-5">5<br><span style="font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted)">days</span></div>
+      </div>
+      <button onclick="saveDays()" style="width:100%;">Save Schedule</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ Fitness Level</div>
+      <div class="level-opts" id="settingsLevelOpts" style="margin-bottom:12px;">
+        <div class="level-opt" onclick="setLevel('beginner')" id="sl-beginner"><div class="lo-title">🌱 Beginner</div><div class="lo-desc">Form focus, lighter weights, more rest.</div></div>
+        <div class="level-opt" onclick="setLevel('intermediate')" id="sl-intermediate"><div class="lo-title">💪 Intermediate</div><div class="lo-desc">Comfortable with major movements, moderate volume.</div></div>
+        <div class="level-opt" onclick="setLevel('advanced')" id="sl-advanced"><div class="lo-title">🏆 Advanced</div><div class="lo-desc">High volume, heavier loads, shorter rest.</div></div>
+      </div>
+      <button onclick="saveLevel()" style="width:100%;">Save Level & Regenerate</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔄 Re-run Setup</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Start the setup wizard again to reconfigure everything from scratch.</p>
+      <button class="secondary" onclick="rerunSetup()" style="width:100%;">Re-run Setup Wizard</button>
+    </div>
+  </div>
+
 <div class="bottom-nav">
   <button class="nav-btn active" onclick="showPage('dashboard',this)"><span class="nav-icon">📊</span>Today</button>
   <button class="nav-btn" onclick="showPage('workouts',this)"><span class="nav-icon">💪</span>Workout</button>
   <button class="nav-btn" onclick="showPage('plan',this)"><span class="nav-icon">📋</span>Plan</button>
   <button class="nav-btn" onclick="showPage('history',this)"><span class="nav-icon">📈</span>History</button>
+  <button class="nav-btn" onclick="showPage('settings',this)"><span class="nav-icon">⚙️</span>Settings</button>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -517,170 +849,239 @@ const SHEETS_URL='https://script.google.com/macros/s/AKfycbwjzHKtOeKDGIrDGYPHxd7
 
 // ── WORKOUT DATA ─────────────────────────────────────────────────────────────
 const WARMUP_EX=[
-  {id:'warmup_tread',name:'Peloton Tread Warm-up',detail:'5 min easy pace + dynamic stretching',icon:'🚴',type:'warmup',hasWeight:false},
+  {id:'warmup_tread',name:'Peloton Tread Warm-up',detail:'5 min easy pace + dynamic stretching',icon:'🚴',type:'warmup',hasWeight:false,
+   cue:'Start at easy walk, build to light jog. Do leg swings, arm circles, hip rotations. Heart rate 100–120 bpm.',yt:'peloton tread warm up'},
 ];
 const COOLDOWN_EX=[
-  {id:'cool_med',name:'Meditation',detail:'5–10 min — Headspace, Calm, or quiet breathing',icon:'🧘',type:'cooldown',hasWeight:false},
-  {id:'cool_stretch',name:'Full Body Stretch',detail:'Hip flexors, chest, hamstrings, shoulders — 5 min',icon:'🤸',type:'cooldown',hasWeight:false},
+  {id:'cool_med',name:'Meditation',detail:'5–10 min — Headspace, Calm, or quiet breathing',icon:'🧘',type:'cooldown',hasWeight:false,
+   cue:'Sit or lie down. Focus on slow breathing — 4 counts in, hold 4, out 6. Let your heart rate drop fully.',yt:'guided meditation after workout'},
+  {id:'cool_stretch',name:'Full Body Stretch',detail:'Hip flexors, chest, hamstrings, shoulders — 5 min',icon:'🤸',type:'cooldown',hasWeight:false,
+   cue:'Hold each stretch 30–45s. Never bounce. Focus on chest, hip flexors, hamstrings, lats — whatever was worked today.',yt:'full body stretch after workout'},
 ];
 const ABS_PUSH=[
-  {id:'abs_plank',name:'Plank',detail:'3×60s — brace everything',icon:'🔲',type:'core',hasWeight:false},
-  {id:'abs_crunch',name:'Cable Crunch (Hudson)',detail:'3×15 — kneeling, high pulley',icon:'⚡',type:'core',hasWeight:true},
+  {id:'abs_plank',name:'Plank',detail:'3×60s — brace everything',icon:'🔲',type:'core',hasWeight:false,
+   cue:'Forearms on floor, body straight as a board. Squeeze glutes, brace abs like you're about to be punched. Hips level — not up or sagging.',yt:'how to do a plank correctly'},
+  {id:'abs_crunch',name:'Cable Crunch (Hudson)',detail:'3×15 — kneeling, high pulley',icon:'⚡',type:'core',hasWeight:true,
+   cue:'Kneel facing the cable, rope behind head. Crunch DOWN with your abs — don't pull with arms. Round your back as you go down, pause at bottom.',yt:'cable crunch how to'},
 ];
 const ABS_PUSH_B=[
-  {id:'abs_plank',name:'Plank',detail:'3×60s',icon:'🔲',type:'core',hasWeight:false},
-  {id:'abs_situp',name:'Freak Athlete Sit-up',detail:'3×15 — decline angle',icon:'⚡',type:'core',hasWeight:false},
+  {id:'abs_plank',name:'Plank',detail:'3×60s',icon:'🔲',type:'core',hasWeight:false,
+   cue:'Forearms on floor, body straight. Squeeze glutes and abs hard. Keep hips level — not up or sagging.',yt:'how to do a plank correctly'},
+  {id:'abs_situp',name:'Freak Athlete Sit-up',detail:'3×15 — decline angle',icon:'⚡',type:'core',hasWeight:false,
+   cue:'Anchor feet on the Hyper Pro decline. Hands crossed on chest or behind head. Lower slowly (3 counts), rise with abs not momentum.',yt:'decline sit up how to'},
 ];
 const ABS_PULL=[
-  {id:'abs_legraise',name:'Leg Raises',detail:'3×15 — slow and controlled',icon:'🦵',type:'core',hasWeight:false},
-  {id:'trx_fallout',name:'TRX Fallout',detail:'3×10 — arms extend overhead',icon:'🪢',type:'core',hasWeight:false},
+  {id:'abs_legraise',name:'Leg Raises',detail:'3×15 — slow and controlled',icon:'🦵',type:'core',hasWeight:false,
+   cue:'Lie flat, hands under lower back for support. Keep legs straight, raise to 90°, lower SLOWLY — don't let heels touch floor. All lower abs.',yt:'hanging leg raise how to'},
+  {id:'trx_fallout',name:'TRX Fallout',detail:'3×10 — arms extend overhead',icon:'🪢',type:'core',hasWeight:false,
+   cue:'Stand facing anchor, hold handles. Keep body rigid like a plank, let arms extend forward and overhead as you fall. Return by pulling arms back. Like an ab wheel standing up.',yt:'TRX fallout exercise'},
 ];
 const ABS_LOWER=[
-  {id:'abs_plank',name:'Plank',detail:'3×60s',icon:'🔲',type:'core',hasWeight:false},
-  {id:'abs_deadbug',name:'Dead Bug',detail:'3×10 each side',icon:'🐛',type:'core',hasWeight:false},
-  {id:'trx_pike',name:'TRX Pike / Knee Tuck',detail:'3×12 — feet in TRX straps',icon:'🪢',type:'core',hasWeight:false},
+  {id:'abs_plank',name:'Plank',detail:'3×60s',icon:'🔲',type:'core',hasWeight:false,
+   cue:'Forearms on floor, body straight. Squeeze glutes and abs. Hips level throughout.',yt:'how to do a plank correctly'},
+  {id:'abs_deadbug',name:'Dead Bug',detail:'3×10 each side',icon:'🐛',type:'core',hasWeight:false,
+   cue:'Lie on back, arms up, knees at 90°. Lower opposite arm and leg toward floor while pressing lower back DOWN. Return slowly. Never let your back arch off the floor.',yt:'dead bug exercise how to'},
+  {id:'trx_pike',name:'TRX Pike / Knee Tuck',detail:'3×12 — feet in TRX straps',icon:'🪢',type:'core',hasWeight:false,
+   cue:'Start in push-up position with feet in straps. Pike: lift hips straight up, keep legs straight. Knee tuck: pull knees to chest instead. Keep core tight throughout.',yt:'TRX pike knee tuck how to'},
 ];
 const ABS_HIIT=[
-  {id:'abs_mountain',name:'Mountain Climbers',detail:'3×30s — fast tempo',icon:'🏔️',type:'core',hasWeight:false},
-  {id:'abs_vup',name:'Ab Wheel / V-Ups',detail:'3×15',icon:'⚙️',type:'core',hasWeight:false},
+  {id:'abs_mountain',name:'Mountain Climbers',detail:'3×30s — fast tempo',icon:'🏔️',type:'core',hasWeight:false,
+   cue:'High plank position. Drive knees alternately to chest at pace. Keep hips LOW and level — don't let them bounce up. Core braced the whole time.',yt:'mountain climbers exercise how to'},
+  {id:'abs_vup',name:'Ab Wheel / V-Ups',detail:'3×15',icon:'⚙️',type:'core',hasWeight:false,
+   cue:'Ab wheel: kneel, roll forward keeping abs tight, don't let hips sag. V-Up: lie flat, simultaneously lift legs and torso to form a V. Control both directions.',yt:'ab wheel rollout how to'},
 ];
 const ABS_LOWER_B=[
-  {id:'abs_ghd',name:'Freak Athlete GHD Sit-up',detail:'3×12 — controlled range of motion',icon:'⚡',type:'core',hasWeight:false},
-  {id:'abs_cable_rot',name:'Cable Woodchop (Hudson)',detail:'3×12 each side',icon:'🌀',type:'core',hasWeight:true},
+  {id:'abs_ghd',name:'Freak Athlete GHD Sit-up',detail:'3×12 — controlled range of motion',icon:'⚡',type:'core',hasWeight:false,
+   cue:'Lock feet into GHD pads. Lower back SLOWLY beyond parallel (3 counts), rise explosively. Keep arms out for balance. Start with small range and build up.',yt:'GHD sit up how to'},
+  {id:'abs_cable_rot',name:'Cable Woodchop (Hudson)',detail:'3×12 each side',icon:'🌀',type:'core',hasWeight:true,
+   cue:'Set cable at high pulley. Pull diagonally across body from high to low — rotate from your core, not your arms. Hips face forward, only torso rotates.',yt:'cable woodchop how to'},
 ];
 
 const WORKOUTS={
-  1:{ // Monday - Upper Push
-    name:'Upper Body Push',icon:'💪',
+  1:{name:'Upper Body Push',icon:'💪',
     A:[
       ...WARMUP_EX,
-      {id:'bench',name:'Barbell Bench Press',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true},
-      {id:'incline_db',name:'Dumbbell Incline Press',detail:'3×10–12',icon:'📐',type:'strength',hasWeight:true},
-      {id:'shoulder_db',name:'DB Shoulder Press',detail:'3×10–12',icon:'🔝',type:'strength',hasWeight:true},
-      {id:'lateral',name:'Lateral Raises (DB)',detail:'3×15',icon:'↔️',type:'strength',hasWeight:true},
-      {id:'tricep_ext',name:'Tricep Overhead Extension (DB)',detail:'3×12',icon:'💪',type:'strength',hasWeight:true},
+      {id:'bench',name:'Barbell Bench Press',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true,
+       cue:'Lie on bench, grip slightly wider than shoulders. Lower bar to mid-chest with elbows at ~45°. Press up explosively. Keep feet flat, back slightly arched, shoulders pinched back.',yt:'barbell bench press form'},
+      {id:'incline_db',name:'Dumbbell Incline Press',detail:'3×10–12',icon:'📐',type:'strength',hasWeight:true,
+       cue:'Bench at 30–45°. Lower DBs to upper chest with elbows at 45°. Press up and slightly in — DBs should almost touch at top. Targets upper chest.',yt:'dumbbell incline press form'},
+      {id:'shoulder_db',name:'DB Shoulder Press',detail:'3×10–12',icon:'🔝',type:'strength',hasWeight:true,
+       cue:'Sit upright, DBs at ear height, palms forward. Press straight up — don't flare elbows too wide. Stop just before lockout to keep tension on shoulders.',yt:'dumbbell shoulder press form'},
+      {id:'lateral',name:'Lateral Raises (DB)',detail:'3×15',icon:'↔️',type:'strength',hasWeight:true,
+       cue:'Slight bend in elbows, raise DBs out to sides to shoulder height. Lead with your elbows, not your hands. Slight forward lean helps. Control the descent — don't drop.',yt:'lateral raise how to'},
+      {id:'tricep_ext',name:'Tricep Overhead Extension (DB)',detail:'3×12',icon:'💪',type:'strength',hasWeight:true,
+       cue:'Hold one DB with both hands overhead. Lower behind head by bending elbows only — upper arms stay still. Extend back up. Great stretch at bottom.',yt:'overhead tricep extension dumbbell'},
       ...ABS_PUSH,
       ...COOLDOWN_EX,
     ],
     B:[
       ...WARMUP_EX,
-      {id:'cable_chest_fly',name:'Cable Chest Fly (Hudson)',detail:'4×12 — mid-pulley both sides',icon:'🔀',type:'strength',hasWeight:true},
-      {id:'smith_press',name:'Smith Machine Press (Hudson)',detail:'4×8–10',icon:'🏗️',type:'strength',hasWeight:true},
-      {id:'cable_shoulder',name:'Cable Lateral Raise (Hudson)',detail:'3×15 each side',icon:'↔️',type:'strength',hasWeight:true},
-      {id:'cable_tricep',name:'Cable Tricep Pushdown (Hudson)',detail:'3×12 — rope or bar',icon:'⬇️',type:'strength',hasWeight:true},
-      {id:'freak_decline',name:'Freak Athlete Decline Push-up',detail:'3×max — feet elevated on Hyper Pro',icon:'⚡',type:'strength',hasWeight:false},
+      {id:'cable_chest_fly',name:'Cable Chest Fly (Hudson)',detail:'4×12 — mid-pulley both sides',icon:'🔀',type:'strength',hasWeight:true,
+       cue:'Set pulleys at chest height, stand in middle. Arms slightly bent, pull handles together in a hugging arc. Squeeze chest at the front. Slowly open back out.',yt:'cable chest fly how to'},
+      {id:'smith_press',name:'Smith Machine Press (Hudson)',detail:'4×8–10',icon:'🏗️',type:'strength',hasWeight:true,
+       cue:'Same as barbell press but bar is fixed in a vertical path. Lie on bench, unrack by rotating bar. Lower to mid-chest, press up. Control the movement — the machine does the balancing.',yt:'smith machine bench press how to'},
+      {id:'cable_shoulder',name:'Cable Lateral Raise (Hudson)',detail:'3×15 each side',icon:'↔️',type:'strength',hasWeight:true,
+       cue:'Single arm, cable at low pulley on opposite side of body. Raise arm out to side to shoulder height. The cross-body angle keeps constant tension throughout.',yt:'cable lateral raise how to'},
+      {id:'cable_tricep',name:'Cable Tricep Pushdown (Hudson)',detail:'3×12 — rope or bar',icon:'⬇️',type:'strength',hasWeight:true,
+       cue:'High pulley, rope or bar attachment. Elbows pinned to sides — they don't move. Push down until arms are straight, pause, return slowly. Elbows stay tucked.',yt:'cable tricep pushdown how to'},
+      {id:'freak_decline',name:'Freak Athlete Decline Push-up',detail:'3×max — feet elevated on Hyper Pro',icon:'⚡',type:'strength',hasWeight:false,
+       cue:'Place feet on elevated surface, hands on floor wider than shoulders. Lower chest to floor with control. Targets upper chest and front delts. The higher your feet the more upper chest emphasis.',yt:'decline push up how to'},
       ...ABS_PUSH_B,
       ...COOLDOWN_EX,
     ],
   },
-  2:{ // Tuesday - Cardio LISS
-    name:'Cardio (LISS)',icon:'🏃',
+  2:{name:'Cardio (LISS)',icon:'🏃',
     A:[
-      {id:'liss_warmup',name:'Peloton Tread Warm-up',detail:'5 min easy jog',icon:'🚴',type:'warmup',hasWeight:false},
-      {id:'liss_main',name:'Steady State Cardio',detail:'25–30 min at 60–70% max HR (~120–140 bpm)',icon:'❤️',type:'cardio',hasWeight:false},
-      {id:'liss_cool',name:'Cool-down Walk',detail:'5 min easy pace',icon:'🚶',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min breathing or guided',icon:'🧘',type:'cooldown',hasWeight:false},
+      {id:'liss_warmup',name:'Peloton Tread Warm-up',detail:'5 min easy jog',icon:'🚴',type:'warmup',hasWeight:false,
+       cue:'Walk to light jog. Get blood flowing without elevating heart rate too high. 100–120 bpm.',yt:'treadmill warm up walk jog'},
+      {id:'liss_main',name:'Steady State Cardio',detail:'25–30 min at 60–70% max HR (~120–140 bpm)',icon:'❤️',type:'cardio',hasWeight:false,
+       cue:'Maintain a pace where you could hold a conversation but it's slightly uncomfortable. This is the fat-burning zone. 220 minus your age = max HR. Target 60–70% of that.',yt:'LISS cardio fat burning'},
+      {id:'liss_cool',name:'Cool-down Walk',detail:'5 min easy pace',icon:'🚶',type:'cooldown',hasWeight:false,
+       cue:'Bring HR back below 100 bpm before stopping. Sudden stops after cardio can cause dizziness.',yt:'cardio cool down walk'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min breathing or guided',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Sit comfortably. Close eyes. 4 counts in through nose, hold 4, 6 counts out through mouth. Let thoughts pass without engaging.',yt:'guided meditation after workout'},
     ],
     B:[
-      {id:'row_warmup',name:'Rowing Machine Warm-up (Hudson)',detail:'5 min easy rowing',icon:'🚣',type:'warmup',hasWeight:false},
-      {id:'row_main',name:'Rowing Steady State (Hudson)',detail:'25–30 min at moderate pace',icon:'🚣',type:'cardio',hasWeight:false},
-      {id:'liss_cool',name:'Cool-down Walk',detail:'5 min easy',icon:'🚶',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false},
+      {id:'row_warmup',name:'Rowing Machine Warm-up (Hudson)',detail:'5 min easy rowing',icon:'🚣',type:'warmup',hasWeight:false,
+       cue:'Drive with legs first, then lean back, then pull arms. Sequence: legs → body → arms. Return: arms → body → legs. Easy pace to warm up.',yt:'rowing machine technique beginner'},
+      {id:'row_main',name:'Rowing Steady State (Hudson)',detail:'25–30 min at moderate pace',icon:'🚣',type:'cardio',hasWeight:false,
+       cue:'Target 18–22 strokes per minute for steady state. Keep form: legs power the drive, back angle consistent. 500m split should feel challenging but sustainable.',yt:'rowing machine steady state cardio'},
+      {id:'liss_cool',name:'Cool-down Walk',detail:'5 min easy',icon:'🚶',type:'cooldown',hasWeight:false,
+       cue:'Bring heart rate down below 100 bpm gradually before stopping.',yt:'cardio cool down'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Breathe slowly and deeply. Let your body fully recover.',yt:'guided meditation 5 minutes'},
     ],
   },
-  3:{ // Wednesday - Rest
-    name:'Rest Day',icon:'😴',
+  3:{name:'Rest Day',icon:'😴',
     A:[
-      {id:'rest_walk',name:'Light Walk',detail:'20–30 min outdoors',icon:'🚶',type:'cardio',hasWeight:false},
-      {id:'rest_foam',name:'Foam Roll',detail:'Quads, IT band, upper back — 10 min',icon:'🛞',type:'cooldown',hasWeight:false},
-      {id:'rest_hydrate',name:'Hydrate Well',detail:'Hit your 50oz water goal',icon:'💧',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false},
+      {id:'rest_walk',name:'Light Walk',detail:'20–30 min outdoors',icon:'🚶',type:'cardio',hasWeight:false,
+       cue:'Easy pace, no intensity. This promotes active recovery — blood flow without stress. Fresh air helps mental recovery too.',yt:'active recovery walk benefits'},
+      {id:'rest_foam',name:'Foam Roll',detail:'Quads, IT band, upper back — 10 min',icon:'🛞',type:'cooldown',hasWeight:false,
+       cue:'Roll slowly, pause on tight spots for 30–60s. Don't roll directly on joints. Quads, IT band (outer thigh), upper back, calves are the priority after leg and push days.',yt:'foam rolling how to'},
+      {id:'rest_hydrate',name:'Hydrate Well',detail:'Hit your 50oz water goal',icon:'💧',type:'cooldown',hasWeight:false,
+       cue:'Muscles recover faster when hydrated. Add electrolytes if you sweat heavily. Spread intake throughout the day — don't chug it all at once.',yt:'hydration recovery'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Rest days are also mental recovery. Use this time to reset stress and set intentions.',yt:'guided meditation rest day'},
     ],
     B:[
-      {id:'rest_walk',name:'Light Walk',detail:'20–30 min outdoors',icon:'🚶',type:'cardio',hasWeight:false},
-      {id:'freak_hyper',name:'Freak Athlete Reverse Hyper',detail:'3×15 light — great for recovery',icon:'⚡',type:'cooldown',hasWeight:false},
-      {id:'rest_stretch2',name:'Full Body Stretch',detail:'15 min — focus on tight areas',icon:'🤸',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false},
+      {id:'rest_walk',name:'Light Walk',detail:'20–30 min outdoors',icon:'🚶',type:'cardio',hasWeight:false,
+       cue:'Easy pace only. This is recovery — not exercise.',yt:'active recovery walk'},
+      {id:'freak_hyper',name:'Freak Athlete Reverse Hyper',detail:'3×15 light — great for recovery',icon:'⚡',type:'cooldown',hasWeight:false,
+       cue:'Lie face down on the pad, legs hanging. Swing legs up to parallel using lower back and glutes — not momentum. Lower slowly. Decompresses the spine. Use light weight or bodyweight.',yt:'reverse hyperextension how to'},
+      {id:'rest_stretch2',name:'Full Body Stretch',detail:'15 min — focus on tight areas',icon:'🤸',type:'cooldown',hasWeight:false,
+       cue:'30–45s per stretch. Breathe into tight areas. Focus on whatever feels tight from the week — common areas: hip flexors, chest, lats, hamstrings.',yt:'full body stretch routine'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Rest and reset mentally.',yt:'guided meditation relaxation'},
     ],
   },
-  4:{ // Thursday - Lower
-    name:'Lower Body + Core',icon:'🦵',
+  4:{name:'Lower Body + Core',icon:'🦵',
     A:[
       ...WARMUP_EX,
-      {id:'squat',name:'Barbell Back Squat',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true},
-      {id:'rdl',name:'Romanian Deadlift (BB)',detail:'3×10–12',icon:'🔻',type:'strength',hasWeight:true},
-      {id:'lunge_db',name:'Dumbbell Lunges',detail:'3×12 each leg',icon:'👣',type:'strength',hasWeight:true},
-      {id:'goblet',name:'Goblet Squat (KB)',detail:'3×15',icon:'🏺',type:'strength',hasWeight:true},
+      {id:'squat',name:'Barbell Back Squat',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true,
+       cue:'Bar on upper traps (not neck). Feet shoulder-width, toes slightly out. Sit back and DOWN — chest up, knees track over toes. Hit parallel or below. Drive through heels to stand.',yt:'barbell back squat form'},
+      {id:'rdl',name:'Romanian Deadlift (BB)',detail:'3×10–12',icon:'🔻',type:'strength',hasWeight:true,
+       cue:'Hold bar at hips, slight knee bend. Hinge at hips, push them BACK as bar slides down legs. Feel hamstring stretch. Don't round lower back. Return by driving hips forward.',yt:'romanian deadlift form how to'},
+      {id:'lunge_db',name:'Dumbbell Lunges',detail:'3×12 each leg',icon:'👣',type:'strength',hasWeight:true,
+       cue:'Step forward, lower back knee toward floor. Front shin vertical — don't let knee cave in or track too far forward. Push back to start through front heel.',yt:'dumbbell lunge how to'},
+      {id:'goblet',name:'Goblet Squat (KB)',detail:'3×15',icon:'🏺',type:'strength',hasWeight:true,
+       cue:'Hold KB at chest with both hands. Squat deep — elbows push knees out at bottom. Keep chest tall. Great for learning squat mechanics.',yt:'goblet squat how to kettlebell'},
       ...ABS_LOWER,
       ...COOLDOWN_EX,
     ],
     B:[
       ...WARMUP_EX,
-      {id:'smith_squat',name:'Smith Machine Squat (Hudson)',detail:'4×10 — controlled descent',icon:'🏗️',type:'strength',hasWeight:true},
-      {id:'cable_rdl',name:'Cable Pull-through (Hudson)',detail:'3×15 — low pulley, hip hinge',icon:'🔀',type:'strength',hasWeight:true},
-      {id:'freak_nordic',name:'Freak Athlete Nordic Curl',detail:'3×6–8 — slow eccentric',icon:'⚡',type:'strength',hasWeight:false},
-      {id:'freak_hip',name:'Freak Athlete Hip Thrust',detail:'3×12 — loaded with barbell',icon:'⚡',type:'strength',hasWeight:true},
-      {id:'kb_swing',name:'KB Swings',detail:'3×20',icon:'🏺',type:'strength',hasWeight:true},
+      {id:'smith_squat',name:'Smith Machine Squat (Hudson)',detail:'4×10 — controlled descent',icon:'🏗️',type:'strength',hasWeight:true,
+       cue:'Position feet slightly in front of bar (unlike free squat). Lower in 3 counts, pause at bottom, drive up. The fixed bar lets you focus on depth and control.',yt:'smith machine squat how to'},
+      {id:'cable_rdl',name:'Cable Pull-through (Hudson)',detail:'3×15 — low pulley, hip hinge',icon:'🔀',type:'strength',hasWeight:true,
+       cue:'Attach rope to low pulley. Stand facing away from machine, rope between legs. Hinge at hips pushing them back, then drive hips forward to stand. Like an RDL but cable keeps constant tension on glutes.',yt:'cable pull through how to'},
+      {id:'freak_nordic',name:'Freak Athlete Nordic Curl',detail:'3×6–8 — slow eccentric',icon:'⚡',type:'strength',hasWeight:false,
+       cue:'Anchor feet under the pad. Start upright on knees, slowly lower your body toward the floor using hamstrings as a brake. Use hands to catch yourself. Pull back up. One of the best hamstring exercises.',yt:'nordic hamstring curl how to'},
+      {id:'freak_hip',name:'Freak Athlete Hip Thrust',detail:'3×12 — loaded with barbell',icon:'⚡',type:'strength',hasWeight:true,
+       cue:'Upper back on bench, barbell across hips. Drive hips up until body forms a straight line from knees to shoulders. Squeeze glutes HARD at top. Control the descent.',yt:'barbell hip thrust how to'},
+      {id:'kb_swing',name:'KB Swings',detail:'3×20',icon:'🏺',type:'strength',hasWeight:true,
+       cue:'Hinge at hips (not squat), swing KB back between legs. Drive hips forward explosively — the HIPS swing the bell, not your arms. Bell floats to chest height. Keep back flat.',yt:'kettlebell swing how to'},
       ...ABS_LOWER_B,
       ...COOLDOWN_EX,
     ],
   },
-  5:{ // Friday - Upper Pull
-    name:'Upper Body Pull',icon:'🔝',
+  5:{name:'Upper Body Pull',icon:'🔝',
     A:[
       ...WARMUP_EX,
-      {id:'trx_row',name:'TRX Row',detail:'4×12 — adjust angle for difficulty',icon:'🪢',type:'strength',hasWeight:false},
-      {id:'trx_bicep',name:'TRX Bicep Curl',detail:'3×12',icon:'🪢',type:'strength',hasWeight:false},
-      {id:'trx_facepull',name:'TRX Face Pull',detail:'3×15 — rear delts',icon:'🪢',type:'strength',hasWeight:false},
-      {id:'bbrow',name:'Barbell Bent-over Row',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true},
-      {id:'dbrow',name:'Single-arm DB Row',detail:'3×10 each side',icon:'💪',type:'strength',hasWeight:true},
-      {id:'hammer',name:'Hammer Curls (DB)',detail:'3×12',icon:'🔨',type:'strength',hasWeight:true},
+      {id:'trx_row',name:'TRX Row',detail:'4×12 — adjust angle for difficulty',icon:'🪢',type:'strength',hasWeight:false,
+       cue:'Face anchor, lean back holding handles, body straight. Pull chest to hands, squeeze shoulder blades together. The more horizontal your body, the harder it is. Keep body rigid throughout.',yt:'TRX row how to'},
+      {id:'trx_bicep',name:'TRX Bicep Curl',detail:'3×12',icon:'🪢',type:'strength',hasWeight:false,
+       cue:'Face anchor, lean back, palms up. Curl hands toward forehead keeping elbows HIGH and stationary. Lower slowly. Walk feet forward to make harder.',yt:'TRX bicep curl how to'},
+      {id:'trx_facepull',name:'TRX Face Pull',detail:'3×15 — rear delts',icon:'🪢',type:'strength',hasWeight:false,
+       cue:'Face anchor at eye level, lean back. Pull handles to either side of your face, elbows flaring out and back. Squeeze shoulder blades. Hits rear delts and rotator cuff.',yt:'TRX face pull how to'},
+      {id:'bbrow',name:'Barbell Bent-over Row',detail:'4×8–10',icon:'🏋️',type:'strength',hasWeight:true,
+       cue:'Hinge to ~45°, overhand grip. Pull bar to lower chest/upper abs — lead with elbows, not hands. Squeeze shoulder blades at top. Keep back flat, don't jerk or use momentum.',yt:'barbell bent over row form'},
+      {id:'dbrow',name:'Single-arm DB Row',detail:'3×10 each side',icon:'💪',type:'strength',hasWeight:true,
+       cue:'Knee and hand on bench, DB in other hand. Pull DB to hip — elbow goes straight back, not out. Think about putting your elbow in your back pocket. Full stretch at bottom.',yt:'single arm dumbbell row how to'},
+      {id:'hammer',name:'Hammer Curls (DB)',detail:'3×12',icon:'🔨',type:'strength',hasWeight:true,
+       cue:'Neutral grip (palms facing each other) — like holding a hammer. Curl up without rotating wrists. Hits brachialis and forearms as well as biceps. Control the descent.',yt:'hammer curl how to'},
       ...ABS_PULL,
       ...COOLDOWN_EX,
     ],
     B:[
       ...WARMUP_EX,
-      {id:'cable_row',name:'Seated Cable Row (Hudson)',detail:'4×10 — low pulley, neutral grip',icon:'🔀',type:'strength',hasWeight:true},
-      {id:'lat_pull',name:'Lat Pulldown (Hudson)',detail:'4×10 — wide or neutral grip',icon:'⬇️',type:'strength',hasWeight:true},
-      {id:'cable_curl',name:'Cable Bicep Curl (Hudson)',detail:'3×12 each side',icon:'💪',type:'strength',hasWeight:true},
-      {id:'cable_facepull',name:'Cable Face Pull (Hudson)',detail:'3×15 — rope, eye level',icon:'🎯',type:'strength',hasWeight:true},
-      {id:'landmine_row',name:'Landmine Row (Hudson)',detail:'3×10 each side',icon:'🔩',type:'strength',hasWeight:true},
+      {id:'cable_row',name:'Seated Cable Row (Hudson)',detail:'4×10 — low pulley, neutral grip',icon:'🔀',type:'strength',hasWeight:true,
+       cue:'Sit tall, slight lean forward to start, pull handle to belly button. Squeeze shoulder blades at end — hold 1 second. Slowly return. Don't use lower back to swing.',yt:'seated cable row how to'},
+      {id:'lat_pull',name:'Lat Pulldown (Hudson)',detail:'4×10 — wide or neutral grip',icon:'⬇️',type:'strength',hasWeight:true,
+       cue:'Grip slightly wider than shoulders. Pull bar to upper chest, elbows drive DOWN and back. Slight lean back okay. Don't pull behind neck. Squeeze lats at bottom.',yt:'lat pulldown how to form'},
+      {id:'cable_curl',name:'Cable Bicep Curl (Hudson)',detail:'3×12 each side',icon:'💪',type:'strength',hasWeight:true,
+       cue:'Low pulley, EZ bar or single handle. Curl up keeping elbows pinned at sides. Cable keeps tension at the bottom (unlike DBs). Control the return.',yt:'cable bicep curl how to'},
+      {id:'cable_facepull',name:'Cable Face Pull (Hudson)',detail:'3×15 — rope, eye level',icon:'🎯',type:'strength',hasWeight:true,
+       cue:'Rope attachment at eye level. Pull rope to face, hands ending near ears — elbows flare OUT and back. Externally rotate at end. Essential for shoulder health and posture.',yt:'cable face pull how to'},
+      {id:'landmine_row',name:'Landmine Row (Hudson)',detail:'3×10 each side',icon:'🔩',type:'strength',hasWeight:true,
+       cue:'Insert barbell into landmine socket. Hinge forward, grab near end of bar with one hand. Row to hip keeping elbow close. Great for unilateral back work with natural arc of movement.',yt:'landmine row how to'},
       ...ABS_PULL,
       ...COOLDOWN_EX,
     ],
   },
-  6:{ // Saturday - HIIT
-    name:'HIIT Cardio',icon:'⚡',
+  6:{name:'HIIT Cardio',icon:'⚡',
     A:[
       ...WARMUP_EX,
-      {id:'hiit_sprint',name:'Sprint Intervals',detail:'30s hard / 90s easy × 8 rounds',icon:'🏃',type:'cardio',hasWeight:false},
-      {id:'kb_swing',name:'KB Swings',detail:'3×20',icon:'🏺',type:'strength',hasWeight:true},
-      {id:'battle_ropes',name:'Battle Ropes (Hudson)',detail:'3×30s — alternating waves',icon:'🌊',type:'cardio',hasWeight:false},
+      {id:'hiit_sprint',name:'Sprint Intervals',detail:'30s hard / 90s easy × 8 rounds',icon:'🏃',type:'cardio',hasWeight:false,
+       cue:'Hard = 85–95% max effort. Easy = recovery walk or slow jog. Don't cut the rest short — full recovery between sprints is what makes the hard intervals effective.',yt:'sprint interval training treadmill'},
+      {id:'kb_swing',name:'KB Swings',detail:'3×20',icon:'🏺',type:'strength',hasWeight:true,
+       cue:'Hip hinge — not a squat. Push hips back, swing KB between legs, then snap hips forward. Arms are just a connection — the power is all hips and glutes.',yt:'kettlebell swing how to'},
+      {id:'battle_ropes',name:'Battle Ropes (Hudson)',detail:'3×30s — alternating waves',icon:'🌊',type:'cardio',hasWeight:false,
+       cue:'Hold one end of each rope. Create continuous waves by alternating arms up and down. Stay low (slight squat), drive from your core and hips. Keep waves going the full 30s.',yt:'battle ropes how to'},
       ...ABS_HIIT,
       ...COOLDOWN_EX,
     ],
     B:[
       ...WARMUP_EX,
-      {id:'hiit_row',name:'Rowing Sprints (Hudson)',detail:'30s max effort / 60s easy × 8',icon:'🚣',type:'cardio',hasWeight:false},
-      {id:'cable_squat_press',name:'Cable Squat to Press (Hudson)',detail:'3×12 — full body',icon:'🔀',type:'strength',hasWeight:true},
-      {id:'freak_jump',name:'Freak Athlete Squat Jumps',detail:'3×30s — explosive',icon:'⚡',type:'cardio',hasWeight:false},
+      {id:'hiit_row',name:'Rowing Sprints (Hudson)',detail:'30s max effort / 60s easy × 8',icon:'🚣',type:'cardio',hasWeight:false,
+       cue:'Max effort: drive hard with legs, lean back aggressively, pull hard. Easy: keep moving at recovery pace. Don't stop between intervals.',yt:'rowing machine HIIT sprints'},
+      {id:'cable_squat_press',name:'Cable Squat to Press (Hudson)',detail:'3×12 — full body',icon:'🔀',type:'strength',hasWeight:true,
+       cue:'Set cable at low position. Hold handle at shoulder, squat down, then as you stand press the cable overhead. Combines legs and shoulder press into one fluid movement.',yt:'cable squat to press how to'},
+      {id:'freak_jump',name:'Freak Athlete Squat Jumps',detail:'3×30s — explosive',icon:'⚡',type:'cardio',hasWeight:false,
+       cue:'Squat to parallel then explode UP off the ground. Land softly with bent knees — absorb the landing. Immediately drop back into squat. Fast as possible while maintaining landing quality.',yt:'squat jumps how to'},
       ...ABS_HIIT,
       ...COOLDOWN_EX,
     ],
   },
-  0:{ // Sunday - Active Rest
-    name:'Active Rest',icon:'🚶',
+  0:{name:'Active Rest',icon:'🚶',
     A:[
-      {id:'rest_walk',name:'30 min Walk Outdoors',detail:'Easy pace — just move',icon:'🚶',type:'cardio',hasWeight:false},
-      {id:'rest_stretch2',name:'Full Body Stretch',detail:'10–15 min',icon:'🤸',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min — set intentions for the week',icon:'🧘',type:'cooldown',hasWeight:false},
-      {id:'rest_reflect',name:'Meal Prep + Planning',detail:'Plan meals and workouts for the week',icon:'📓',type:'cooldown',hasWeight:false},
+      {id:'rest_walk',name:'30 min Walk Outdoors',detail:'Easy pace — just move',icon:'🚶',type:'cardio',hasWeight:false,
+       cue:'No pace target. Just move. Fresh air, sunlight and low-intensity movement speeds recovery and boosts mood.',yt:'active recovery benefits'},
+      {id:'rest_stretch2',name:'Full Body Stretch',detail:'10–15 min',icon:'🤸',type:'cooldown',hasWeight:false,
+       cue:'Hold 30–45s each. Don't force it. Focus on what feels tight from the week.',yt:'full body flexibility routine'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min — set intentions for the week',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Use this session to think about the week ahead. What are your goals? What will you do differently?',yt:'Sunday meditation intention setting'},
+      {id:'rest_reflect',name:'Meal Prep + Planning',detail:'Plan meals and workouts for the week',icon:'📓',type:'cooldown',hasWeight:false,
+       cue:'Prep protein sources for the week. Plan which days you'll work out, what you'll eat. Success in fitness is mostly planning.',yt:'meal prep for weight loss'},
     ],
     B:[
-      {id:'rest_walk',name:'30 min Walk Outdoors',detail:'Easy pace',icon:'🚶',type:'cardio',hasWeight:false},
-      {id:'freak_hyper',name:'Freak Athlete Reverse Hyper',detail:'3×15 light — recovery focused',icon:'⚡',type:'cooldown',hasWeight:false},
-      {id:'freak_back',name:'Freak Athlete Back Extension',detail:'3×12 — bodyweight',icon:'⚡',type:'cooldown',hasWeight:false},
-      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false},
+      {id:'rest_walk',name:'30 min Walk Outdoors',detail:'Easy pace',icon:'🚶',type:'cardio',hasWeight:false,
+       cue:'Easy recovery walk. No intensity.',yt:'active recovery walk'},
+      {id:'freak_hyper',name:'Freak Athlete Reverse Hyper',detail:'3×15 light — recovery focused',icon:'⚡',type:'cooldown',hasWeight:false,
+       cue:'Lie face down on the pad, legs hanging off. Swing legs up to horizontal using lower back and glutes. Lower slowly. Decompresses lumbar spine. Use very light weight for recovery days.',yt:'reverse hyperextension how to'},
+      {id:'freak_back',name:'Freak Athlete Back Extension',detail:'3×12 — bodyweight',icon:'⚡',type:'cooldown',hasWeight:false,
+       cue:'Lock feet in, body at 45° angle. Lower torso toward floor, then extend back up using lower back and glutes. Keep back neutral — don't hyperextend at top. Add plate for extra resistance.',yt:'back extension how to 45 degree'},
+      {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,
+       cue:'Full body relaxation. Deep breathing. Let the week go.',yt:'guided relaxation meditation'},
     ],
   },
 };
@@ -700,7 +1101,17 @@ const DEFAULT={
   exerciseWeights:{}, // {exId: {date,weight,prev}}
   exerciseDone:{},    // {dateStr: {exId: true}}
   dailyPoints:{},     // {dateStr: points}
-  habits:{workout:false,water:false,protein:false,sleep:false,noLateSnack:false,alcohol:false,meditation:false}
+  habits:{workout:false,water:false,protein:false,sleep:false,noLateSnack:false,alcohol:false,meditation:false},
+  onboardingComplete:false,
+  userName:'',
+  equipment:[],
+  trainingDays:4,
+  fitnessLevel:'intermediate',
+  generatedWorkouts:null,
+  bonusPoints:0,
+  challengeAwards:{},
+  earnedBadges:{},
+  weeklyHabits:{},
 };
 
 let state=JSON.parse(localStorage.getItem('fitnessState')||'null')||{...DEFAULT};
@@ -712,6 +1123,30 @@ if(!state.dailyPoints) state.dailyPoints={};
 if(!state.bestStreak) state.bestStreak=0;
 if(state.viewDow===undefined) state.viewDow=null;
 if(!state.currentRoutine) state.currentRoutine='A';
+if(!state.equipment) state.equipment=[];
+if(!state.bonusPoints) state.bonusPoints=0;
+if(!state.challengeAwards) state.challengeAwards={};
+if(!state.earnedBadges) state.earnedBadges={};
+if(!state.weeklyHabits) state.weeklyHabits={};
+// Migration: existing users with data are already onboarded
+if(!state.onboardingComplete && state.weightHistory && state.weightHistory.length > 0) {
+  state.onboardingComplete = true;
+  if(!state.equipment || state.equipment.length===0) {
+    state.equipment = ['dumbbells','barbell','pullup_bar','resistance_bands','treadmill','bench','kettlebells','trx','cable_machine','smith_machine','hyper_extension','reverse_hyper','landmine','battle_ropes'];
+  }
+  if(!state.trainingDays) state.trainingDays = 4;
+  if(!state.fitnessLevel) state.fitnessLevel = 'intermediate';
+  if(!state.userName) state.userName = '';
+  // Existing user has Oura already configured with hardcoded token
+  if(state.hasOura === undefined) {
+    state.hasOura = true;
+    state.ouraToken = 'S3YFRUR7OBIXTXCAX3PUQ3UON4GB3O4W';
+  }
+}
+// Also migrate hasOura for users who already completed onboarding without wearable step
+if(state.onboardingComplete && state.hasOura === undefined) {
+  state.hasOura = false;
+}
 
 let syncTimer=null;
 
@@ -972,6 +1407,10 @@ function getWeekDateStr(dow){
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
+  updateHeaderName();
+  // Show/hide Oura card based on wearable setup
+  const ouraCard = document.getElementById('ouraCard');
+  if (ouraCard) ouraCard.style.display = state.hasOura ? 'block' : 'none';
   const lost=state.startWeight-state.currentWeight;
   const pct=Math.min(100,Math.max(0,Math.round((lost/30)*100)));
   document.getElementById('progressPct').textContent=pct+'%';
@@ -1174,7 +1613,8 @@ function renderWeekWorkoutView(){
   const dow=getViewDow();
   const todayDow=new Date().getDay();
   const isToday=dow===todayDow;
-  const w=WORKOUTS[dow];
+  const workoutSource = state.generatedWorkouts || WORKOUTS;
+  const w=workoutSource[dow] || WORKOUTS[dow];
   const routine=state.currentRoutine||'A';
   const exercises=w[routine]||w.A;
 
@@ -1222,13 +1662,25 @@ function renderWeekWorkoutView(){
         <div class="ex-check">${isDone?'✓':''}</div>
       </div>`;
 
-    if(ex.hasWeight){
-      html+=`<div class="ex-weight-row">
-        <input type="number" id="wi_${ex.id}" placeholder="lbs lifted..." value="${todayW}" min="0" max="999" step="2.5"
-          onblur="saveExWeight('${ex.id}','${dateKey}')" onclick="event.stopPropagation()">
+    // Cue text
+    if(ex.cue){
+      html+=`<div class="ex-cue">${ex.cue}</div>`;
+    }
+
+    // YouTube + weight row
+    if(ex.hasWeight || ex.yt){
+      html+=`<div class="ex-actions">`;
+      if(ex.yt){
+        const ytUrl='https://www.youtube.com/results?search_query='+encodeURIComponent(ex.yt);
+        html+=`<a href="${ytUrl}" target="_blank" class="yt-btn" onclick="event.stopPropagation()">▶ Watch</a>`;
+      }
+      if(ex.hasWeight){
+        html+=`<input type="number" id="wi_${ex.id}" placeholder="lbs lifted..." value="${todayW}" min="0" max="999" step="2.5"
+          onblur="saveExWeight('${ex.id}','${dateKey}')" onclick="event.stopPropagation()" style="flex:1;max-width:130px;">
         <button class="sm orange" style="flex-shrink:0" onclick="event.stopPropagation();saveExWeight('${ex.id}','${dateKey}')">Save</button>
-        <div class="ex-weight-prev">${prevW?`Last: <span class="prev-val">${prevW} lbs</span>`:'First time!'}</div>
-      </div>`;
+        <div class="ex-weight-prev" style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">${prevW?`Last: <span style="color:var(--accent3);font-weight:600">${prevW} lbs</span>`:'First time!'}</div>`;
+      }
+      html+=`</div>`;
     }
     html+='</div>';
   });
@@ -1440,7 +1892,8 @@ function showPage(name,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   btn.classList.add('active');
-  if(name==='history'){updateLastSyncTime();renderHistory();}
+  if(name==='history'){updateLastSyncTime();renderHistory();renderWeeklyScorecard();renderBadges();}
+  if(name==='settings'){renderSettings();}
   if(name==='workouts'){renderWeekWorkoutView();}
 }
 function switchTab(name,el){
@@ -1450,6 +1903,758 @@ function switchTab(name,el){
   el.classList.add('active');
   const target=card.querySelector('#tab-'+name);
   if(target) target.classList.add('active');
+}
+
+
+// ── GAMIFICATION ─────────────────────────────────────────────────────────────
+const LEVELS=[
+  {min:0,max:100,title:'ROOKIE',icon:'🌱',color:'#888888'},
+  {min:101,max:300,title:'COMMITTED',icon:'🔥',color:'#e05c1a'},
+  {min:301,max:600,title:'CONSISTENT',icon:'⚡',color:'#c47a00'},
+  {min:601,max:1000,title:'DEDICATED',icon:'💪',color:'#1a6fa8'},
+  {min:1001,max:2000,title:'ELITE',icon:'🏆',color:'#2a7d4f'},
+  {min:2001,max:9999,title:'GYMIQ MASTER',icon:'👑',color:'#6b21a8'},
+];
+function getTotalPoints(){return Object.values(state.dailyPoints||{}).reduce((a,v)=>a+(v||0),0)+(state.bonusPoints||0);}
+function getLevel(pts){return LEVELS.slice().reverse().find(l=>pts>=l.min)||LEVELS[0];}
+function getWeeklyPoints(){
+  let total=0,days=0;
+  for(let i=0;i<7;i++){const d=getWeekDateStr(i);const pts=state.dailyPoints?.[d];if(pts!==undefined){total+=pts;days++;}}
+  return {total,days,possible:days*MAX_PTS};
+}
+function getWeekGrade(pct){
+  if(pct>=0.9)return {grade:'S',label:'Locked In',color:'var(--accent)'};
+  if(pct>=0.75)return {grade:'A',label:'Strong Week',color:'var(--success)'};
+  if(pct>=0.6)return {grade:'B',label:'Solid',color:'var(--accent3)'};
+  if(pct>=0.45)return {grade:'C',label:'Inconsistent',color:'var(--warn)'};
+  return {grade:'D',label:'Reset Needed',color:'var(--danger)'};
+}
+function renderLevel(){
+  const pts=getTotalPoints();
+  const lvl=getLevel(pts);
+  const nextLvl=LEVELS[LEVELS.indexOf(lvl)+1];
+  const pct=nextLvl?Math.min(100,Math.round(((pts-lvl.min)/(nextLvl.min-lvl.min))*100)):100;
+  const li=document.getElementById('levelIcon');if(li)li.textContent=lvl.icon;
+  const lt=document.getElementById('levelTitle');if(lt){lt.textContent=lvl.title;lt.style.color=lvl.color;}
+  const ls=document.getElementById('levelSub');if(ls)ls.textContent=nextLvl?pts+' pts — '+(nextLvl.min-pts)+' to '+nextLvl.title:pts+' pts — MAX LEVEL';
+  const lf=document.getElementById('levelXpFill');if(lf){lf.style.width=pct+'%';lf.style.background=lvl.color;}
+  const lb=document.getElementById('levelBanner');if(lb)lb.style.borderColor=lvl.color+'66';
+  const wk=getWeeklyPoints();
+  const wPct=wk.possible>0?wk.total/wk.possible:0;
+  const grade=getWeekGrade(wPct);
+  const ge=document.getElementById('weekGradeHeader');
+  if(ge){ge.textContent=wk.days>0?grade.grade:'—';ge.style.color=grade.color;}
+}
+function countHabitDaysThisWeek(key){
+  let c=0;for(let i=0;i<7;i++){const d=getWeekDateStr(i);if(state.weeklyHabits?.[d]?.[key])c++;}return c;
+}
+function countDaysAboveScore(min){
+  let c=0;for(let i=0;i<7;i++){const d=getWeekDateStr(i);if((state.dailyPoints?.[d]||0)>=min)c++;}return c;
+}
+function getWeeklyChallenge(){
+  const wn=Math.floor(Date.now()/(7*24*60*60*1000));
+  const ch=[
+    {id:'workout4',icon:'🏋️',title:'4 Workouts This Week',desc:'Complete the workout habit 4 days this week.',pts:20,check:()=>countHabitDaysThisWeek('workout')>=4,progress:()=>({cur:countHabitDaysThisWeek('workout'),max:4})},
+    {id:'drinks4',icon:'🍺',title:'Stay Under 4 Drinks',desc:'Log 4 or fewer drinks total this week.',pts:15,check:()=>totalDrinksThisWeek()<=4&&Object.keys(state.weekDrinks||{}).length>0,progress:()=>({cur:Math.max(0,4-Math.max(0,totalDrinksThisWeek()-4)),max:4})},
+    {id:'protein5',icon:'🥩',title:'Protein 5 Days',desc:'Hit your protein goal 5 days this week.',pts:20,check:()=>countHabitDaysThisWeek('protein')>=5,progress:()=>({cur:countHabitDaysThisWeek('protein'),max:5})},
+    {id:'sleep5',icon:'😴',title:'Sleep 5 Nights',desc:'Log 7-9 hours of sleep 5 nights.',pts:20,check:()=>countHabitDaysThisWeek('sleep')>=5,progress:()=>({cur:countHabitDaysThisWeek('sleep'),max:5})},
+    {id:'meditate5',icon:'🧘',title:'Meditate 5 Days',desc:'Complete meditation habit 5 days this week.',pts:15,check:()=>countHabitDaysThisWeek('meditation')>=5,progress:()=>({cur:countHabitDaysThisWeek('meditation'),max:5})},
+    {id:'score7',icon:'⭐',title:'Score 7+ Points 5 Days',desc:'Hit at least 7 points on 5 different days.',pts:25,check:()=>countDaysAboveScore(7)>=5,progress:()=>({cur:countDaysAboveScore(7),max:5})},
+    {id:'perfect3',icon:'🔥',title:'3 Perfect Days',desc:'Achieve a perfect score 3 times this week.',pts:30,check:()=>countDaysAboveScore(MAX_PTS)>=3,progress:()=>({cur:countDaysAboveScore(MAX_PTS),max:3})},
+    {id:'water5',icon:'💧',title:'Hydrate 5 Days',desc:'Hit your water goal 5 days this week.',pts:15,check:()=>countHabitDaysThisWeek('water')>=5,progress:()=>({cur:countHabitDaysThisWeek('water'),max:5})},
+  ];
+  return ch[wn%ch.length];
+}
+function renderChallenge(){
+  const ch=getWeeklyChallenge();
+  const prog=ch.progress();
+  const done=ch.check();
+  const pct=Math.min(100,Math.round((prog.cur/prog.max)*100));
+  const wk='week_'+Math.floor(Date.now()/(7*24*60*60*1000));
+  const awarded=state.challengeAwards?.[wk];
+  if(done&&!awarded){
+    if(!state.challengeAwards)state.challengeAwards={};
+    state.challengeAwards[wk]=true;
+    state.bonusPoints=(state.bonusPoints||0)+ch.pts;
+    save();showToast('🎯 Challenge complete! +'+ch.pts+' bonus pts!');
+  }
+  const el=document.getElementById('challengeContent');if(!el)return;
+  el.innerHTML='<div class="challenge-card '+(done?'completed':'')+'">'+
+    '<div class="challenge-header"><span class="challenge-icon">'+ch.icon+'</span><span class="challenge-title">'+ch.title+'</span><span class="challenge-pts">+'+ch.pts+'pts</span></div>'+
+    '<div class="challenge-desc">'+ch.desc+'</div>'+
+    '<div class="challenge-progress"><div class="challenge-bar-bg"><div class="challenge-bar-fill" style="width:'+pct+'%"></div></div><span class="challenge-pct">'+prog.cur+'/'+prog.max+' '+(done?'✅':'')+'</span></div>'+
+    (awarded||done?'<div style="font-size:11px;color:var(--accent);font-family:DM Mono,monospace;margin-top:8px;text-align:center;">+'+ch.pts+' BONUS POINTS EARNED 🎉</div>':'')+
+    '</div>';
+}
+const ALL_BADGES=[
+  {id:'first_log',icon:'📝',name:'First Log',check:()=>Object.values(state.completedWorkouts||{}).some(Boolean)},
+  {id:'first_weight',icon:'⚖️',name:'Weighed In',check:()=>(state.weightHistory||[]).length>0},
+  {id:'streak3',icon:'🔥',name:'On Fire',check:()=>(state.bestStreak||0)>=3},
+  {id:'streak7',icon:'⚡',name:'Week Warrior',check:()=>(state.bestStreak||0)>=7},
+  {id:'workouts5',icon:'💪',name:'5 Workouts',check:()=>Object.values(state.completedWorkouts||{}).filter(Boolean).length>=5},
+  {id:'workouts10',icon:'🏋️',name:'10 Workouts',check:()=>Object.values(state.completedWorkouts||{}).filter(Boolean).length>=10},
+  {id:'workouts25',icon:'🏆',name:'25 Workouts',check:()=>Object.values(state.completedWorkouts||{}).filter(Boolean).length>=25},
+  {id:'dry_week',icon:'🧊',name:'Dry Week',check:()=>totalDrinksThisWeek()===0&&Object.keys(state.weekDrinks||{}).length>0},
+  {id:'pts100',icon:'💯',name:'Century',check:()=>getTotalPoints()>=100},
+  {id:'pts300',icon:'🌟',name:'Committed',check:()=>getTotalPoints()>=300},
+  {id:'pts500',icon:'🏅',name:'Dedicated',check:()=>getTotalPoints()>=500},
+  {id:'lbs5',icon:'📉',name:'5 Lbs Down',check:()=>(state.startWeight-state.currentWeight)>=5},
+  {id:'lbs10',icon:'🎯',name:'10 Lbs Down',check:()=>(state.startWeight-state.currentWeight)>=10},
+  {id:'lbs20',icon:'🚀',name:'Halfway There',check:()=>(state.startWeight-state.currentWeight)>=20},
+  {id:'lbs30',icon:'👑',name:'GOAL ACHIEVED',check:()=>(state.startWeight-state.currentWeight)>=30},
+  {id:'chal1',icon:'🎖️',name:'Challenger',check:()=>Object.keys(state.challengeAwards||{}).length>=1},
+  {id:'chal5',icon:'🎗️',name:'Champion',check:()=>Object.keys(state.challengeAwards||{}).length>=5},
+];
+function renderBadges(){
+  const el=document.getElementById('badgeCollection');if(!el)return;
+  if(!state.earnedBadges)state.earnedBadges={};
+  let nb=false;
+  ALL_BADGES.forEach(b=>{if(!state.earnedBadges[b.id]&&b.check()){state.earnedBadges[b.id]=todayStr();nb=true;}});
+  if(nb)save();
+  el.innerHTML=ALL_BADGES.map(b=>{
+    const e=!!state.earnedBadges[b.id];
+    return '<div class="badge-item '+(e?'earned':'locked')+'" title="'+b.name+(e?' — Earned '+state.earnedBadges[b.id]:'')+'"><div class="bi-icon">'+b.icon+'</div><div class="bi-name">'+b.name+'</div></div>';
+  }).join('');
+}
+function renderWeeklyScorecard(){
+  const el=document.getElementById('weeklyScorecard');if(!el)return;
+  const DL=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const scores=DL.map((_,i)=>{const d=getWeekDateStr(i);return state.dailyPoints?.[d]||0;});
+  const total=scores.reduce((a,v)=>a+v,0);
+  const possible=7*MAX_PTS;
+  const grade=getWeekGrade(total/possible);
+  const bars=scores.map((s,i)=>{
+    const bp=Math.round((s/MAX_PTS)*100);
+    const col=s>=MAX_PTS?'var(--accent)':s>=(MAX_PTS*0.7)?'var(--success)':s>=(MAX_PTS*0.4)?'var(--warn)':s>0?'var(--accent2)':'var(--border)';
+    return '<div class="wds-cell"><div class="wds-pts" style="color:'+(s>0?col:'var(--muted')+')">'+( s>0?s:'')+
+      '</div><div class="wds-bar-bg"><div class="wds-bar-fill" style="height:'+bp+'%;background:'+col+'"></div></div>'+
+      '<div class="wds-label">'+DL[i].slice(0,1)+'</div></div>';
+  }).join('');
+  el.innerHTML='<div class="week-grade"><div class="grade" style="color:'+grade.color+'">'+grade.grade+'</div>'+
+    '<div class="grade-label">'+grade.label+'</div>'+
+    '<div style="font-size:12px;color:var(--muted);margin-top:4px;font-family:DM Mono,monospace;">'+total+' / '+possible+' pts this week</div></div>'+
+    '<div class="week-day-scores">'+bars+'</div>';
+}
+
+
+// ── EQUIPMENT LIBRARY ─────────────────────────────────────────────────────────
+const EQUIPMENT_LIST = [
+  // Free Weights
+  {id:'dumbbells',      name:'Dumbbells',           icon:'🏋️', cat:'Free Weights'},
+  {id:'barbell',        name:'Barbell + Plates',     icon:'⚖️', cat:'Free Weights'},
+  {id:'kettlebells',    name:'Kettlebells',           icon:'🏺', cat:'Free Weights'},
+  {id:'ez_bar',         name:'EZ Curl Bar',           icon:'〰️', cat:'Free Weights'},
+  // Machines
+  {id:'cable_machine',  name:'Cable Machine',         icon:'🔀', cat:'Machines'},
+  {id:'smith_machine',  name:'Smith Machine',         icon:'🏗️', cat:'Machines'},
+  {id:'lat_pulldown',   name:'Lat Pulldown Machine',  icon:'⬇️', cat:'Machines'},
+  {id:'leg_press',      name:'Leg Press Machine',     icon:'🦵', cat:'Machines'},
+  {id:'chest_fly',      name:'Chest Fly / Pec Deck',  icon:'🔁', cat:'Machines'},
+  {id:'leg_curl',       name:'Leg Curl Machine',      icon:'🦵', cat:'Machines'},
+  // Specialty
+  {id:'trx',            name:'TRX / Suspension',      icon:'🪢', cat:'Specialty'},
+  {id:'pullup_bar',     name:'Pull-up Bar',            icon:'🔝', cat:'Specialty'},
+  {id:'dip_bar',        name:'Dip Bars',               icon:'📐', cat:'Specialty'},
+  {id:'rings',          name:'Gymnastic Rings',        icon:'⭕', cat:'Specialty'},
+  {id:'resistance_bands',name:'Resistance Bands',     icon:'🌀', cat:'Specialty'},
+  {id:'battle_ropes',   name:'Battle Ropes',           icon:'🌊', cat:'Specialty'},
+  {id:'landmine',       name:'Landmine Attachment',    icon:'🔩', cat:'Specialty'},
+  // Bench / Rack
+  {id:'bench',          name:'Flat Bench',             icon:'🛏️', cat:'Bench/Rack'},
+  {id:'incline_bench',  name:'Incline/Adjustable Bench',icon:'📐',cat:'Bench/Rack'},
+  {id:'squat_rack',     name:'Squat Rack / Power Rack',icon:'🏛️',cat:'Bench/Rack'},
+  // Specialty Machines
+  {id:'hyper_extension',name:'Hyper Extension / GHD', icon:'⚡', cat:'Specialty'},
+  {id:'reverse_hyper',  name:'Reverse Hyper',          icon:'🔄', cat:'Specialty'},
+  // Cardio
+  {id:'treadmill',      name:'Treadmill',              icon:'🏃', cat:'Cardio'},
+  {id:'bike',           name:'Stationary Bike',        icon:'🚴', cat:'Cardio'},
+  {id:'rower',          name:'Rowing Machine',         icon:'🚣', cat:'Cardio'},
+  {id:'jump_rope',      name:'Jump Rope',              icon:'🪃', cat:'Cardio'},
+  {id:'elliptical',     name:'Elliptical',             icon:'🔁', cat:'Cardio'},
+  // Bodyweight
+  {id:'yoga_mat',       name:'Yoga Mat / Floor Space', icon:'🧘', cat:'Bodyweight'},
+  {id:'ab_wheel',       name:'Ab Wheel',               icon:'⚙️', cat:'Bodyweight'},
+  {id:'foam_roller',    name:'Foam Roller',             icon:'🛞', cat:'Bodyweight'},
+];
+
+// ── EXERCISE DATABASE (equipment-tagged) ──────────────────────────────────────
+// Each exercise: requires[] = equipment needed (any one match = can do it)
+// level = min level (1=beginner, 2=intermediate, 3=advanced)
+// muscle = primary muscle group for programming logic
+const EX_DB = {
+  // PUSH - CHEST
+  push_barbell_bench:   {name:'Barbell Bench Press',    req:['barbell','bench'],    muscles:['chest'],   level:1, icon:'🏋️', sets:{b:'3×8',i:'4×8',a:'5×5'}, cue:'Lower to mid-chest, elbows at 45°. Press explosively.', yt:'barbell bench press form'},
+  push_db_bench:        {name:'Dumbbell Bench Press',   req:['dumbbells','bench'],  muscles:['chest'],   level:1, icon:'💪', sets:{b:'3×10',i:'4×10',a:'4×8'}, cue:'Controlled descent, press and squeeze at top.', yt:'dumbbell bench press form'},
+  push_db_incline:      {name:'DB Incline Press',       req:['dumbbells','incline_bench'],muscles:['chest'],level:1,icon:'📐',sets:{b:'3×10',i:'3×10',a:'4×8'},cue:'30-45° angle, targets upper chest.',yt:'dumbbell incline press'},
+  push_cable_fly:       {name:'Cable Chest Fly',        req:['cable_machine'],      muscles:['chest'],   level:1, icon:'🔀', sets:{b:'3×12',i:'4×12',a:'4×12'}, cue:'Mid-pulley, squeeze chest in hugging arc.', yt:'cable chest fly'},
+  push_chest_fly_mach:  {name:'Chest Fly Machine',      req:['chest_fly'],          muscles:['chest'],   level:1, icon:'🔁', sets:{b:'3×12',i:'3×15',a:'4×12'}, cue:'Controlled arc, squeeze at front.', yt:'pec deck fly machine'},
+  push_dips:            {name:'Dips',                   req:['dip_bar','rings'],    muscles:['chest'],   level:2, icon:'📐', sets:{b:'3×6',i:'3×10',a:'4×12'}, cue:'Lean forward for chest, stay upright for triceps.', yt:'dips how to chest'},
+  push_pushup:          {name:'Push-ups',               req:['yoga_mat'],           muscles:['chest'],   level:1, icon:'✊', sets:{b:'3×10',i:'3×15',a:'3×max'}, cue:'Body straight, elbows 45°, chest to floor.', yt:'push up form'},
+  push_smith_bench:     {name:'Smith Machine Press',    req:['smith_machine'],      muscles:['chest'],   level:1, icon:'🏗️', sets:{b:'3×10',i:'4×8',a:'4×6'}, cue:'Fixed bar path — focus on feel over weight.', yt:'smith machine bench press'},
+  push_trx_pushup:      {name:'TRX Push-up',            req:['trx'],                muscles:['chest'],   level:2, icon:'🪢', sets:{b:'3×10',i:'3×12',a:'3×max'}, cue:'Handles at chest height, instability = more core.', yt:'TRX push up'},
+  // PUSH - SHOULDER
+  push_db_shoulder:     {name:'DB Shoulder Press',      req:['dumbbells'],          muscles:['shoulders'],level:1,icon:'🔝',sets:{b:'3×10',i:'4×10',a:'4×8'},cue:'Press overhead, stop just before lockout.',yt:'dumbbell shoulder press'},
+  push_lateral_raise:   {name:'Lateral Raises',         req:['dumbbells','resistance_bands'],muscles:['shoulders'],level:1,icon:'↔️',sets:{b:'3×12',i:'3×15',a:'4×15'},cue:'Lead with elbows, raise to shoulder height.',yt:'lateral raise how to'},
+  push_cable_lateral:   {name:'Cable Lateral Raise',    req:['cable_machine'],      muscles:['shoulders'],level:1,icon:'↔️',sets:{b:'3×12',i:'3×15',a:'3×15'},cue:'Cross-body cable keeps constant tension.',yt:'cable lateral raise'},
+  push_front_raise:     {name:'Front Raises',           req:['dumbbells','barbell'], muscles:['shoulders'],level:1,icon:'⬆️',sets:{b:'3×12',i:'3×12',a:'3×12'},cue:'Raise to eye level, control descent.',yt:'front raise how to'},
+  push_face_pull_cable: {name:'Cable Face Pull',        req:['cable_machine'],      muscles:['shoulders'],level:1,icon:'🎯',sets:{b:'3×15',i:'3×15',a:'4×15'},cue:'Rope to face, elbows OUT and back. Essential for shoulder health.',yt:'cable face pull'},
+  push_band_face_pull:  {name:'Band Face Pull',         req:['resistance_bands'],   muscles:['shoulders'],level:1,icon:'🌀',sets:{b:'3×15',i:'3×15',a:'3×15'},cue:'Anchor band at eye level, pull apart toward face.',yt:'resistance band face pull'},
+  // PUSH - TRICEP
+  push_tricep_ext:      {name:'Tricep Overhead Extension',req:['dumbbells','ez_bar'],muscles:['triceps'],level:1,icon:'💪',sets:{b:'3×12',i:'3×12',a:'4×10'},cue:'Upper arms still, extend from elbow only.',yt:'overhead tricep extension'},
+  push_cable_pushdown:  {name:'Cable Tricep Pushdown',  req:['cable_machine'],      muscles:['triceps'], level:1, icon:'⬇️', sets:{b:'3×12',i:'3×12',a:'4×10'}, cue:'Elbows pinned to sides, push to full extension.', yt:'cable tricep pushdown'},
+  push_skull_crusher:   {name:'Skull Crushers',         req:['barbell','dumbbells','ez_bar'],muscles:['triceps'],level:2,icon:'💀',sets:{b:'3×10',i:'3×12',a:'4×10'},cue:'Lower bar to forehead, extend from elbow only.',yt:'skull crushers how to'},
+  push_band_tricep:     {name:'Band Tricep Pushdown',   req:['resistance_bands'],   muscles:['triceps'], level:1, icon:'🌀', sets:{b:'3×15',i:'3×15',a:'3×15'}, cue:'Anchor band overhead, push down to full extension.', yt:'resistance band tricep pushdown'},
+  // PULL - BACK
+  pull_barbell_row:     {name:'Barbell Bent-over Row',  req:['barbell'],            muscles:['back'],    level:2, icon:'🏋️', sets:{b:'3×8',i:'4×8',a:'4×6'}, cue:'Hinge to 45°, pull to lower chest, squeeze blades.', yt:'barbell row form'},
+  pull_db_row:          {name:'Single-arm DB Row',      req:['dumbbells','bench'],  muscles:['back'],    level:1, icon:'💪', sets:{b:'3×10',i:'3×10',a:'4×8'}, cue:'Pull elbow back toward hip, full stretch at bottom.', yt:'dumbbell row how to'},
+  pull_cable_row:       {name:'Seated Cable Row',       req:['cable_machine'],      muscles:['back'],    level:1, icon:'🔀', sets:{b:'3×10',i:'4×10',a:'4×8'}, cue:'Sit tall, pull to belly, squeeze shoulder blades.', yt:'cable row form'},
+  pull_lat_pulldown:    {name:'Lat Pulldown',           req:['lat_pulldown','cable_machine'],muscles:['back'],level:1,icon:'⬇️',sets:{b:'3×10',i:'4×10',a:'4×8'},cue:'Pull to upper chest, elbows drive DOWN and back.',yt:'lat pulldown form'},
+  pull_pullup:          {name:'Pull-ups',               req:['pullup_bar','rings'],  muscles:['back'],   level:2, icon:'🔝', sets:{b:'3×max',i:'4×6',a:'4×10'}, cue:'Dead hang to chin over bar. Quality over quantity.', yt:'pull up form'},
+  pull_trx_row:         {name:'TRX Row',                req:['trx'],                muscles:['back'],    level:1, icon:'🪢', sets:{b:'3×12',i:'4×12',a:'4×12'}, cue:'Lean back, pull chest to hands, squeeze blades.', yt:'TRX row how to'},
+  pull_landmine_row:    {name:'Landmine Row',           req:['landmine','barbell'],  muscles:['back'],   level:2, icon:'🔩', sets:{b:'3×10',i:'3×10',a:'4×8'}, cue:'Hinge forward, row to hip, natural arc of movement.', yt:'landmine row'},
+  pull_band_row:        {name:'Resistance Band Row',    req:['resistance_bands'],   muscles:['back'],    level:1, icon:'🌀', sets:{b:'3×15',i:'3×15',a:'3×15'}, cue:'Anchor band low, row elbows back, squeeze blades.', yt:'resistance band row'},
+  // PULL - BICEP
+  pull_barbell_curl:    {name:'Barbell Curl',           req:['barbell','ez_bar'],   muscles:['biceps'],  level:1, icon:'💪', sets:{b:'3×10',i:'3×12',a:'4×10'}, cue:'Strict form — no swinging. Squeeze at top.', yt:'barbell curl form'},
+  pull_db_curl:         {name:'Dumbbell Curl',          req:['dumbbells'],          muscles:['biceps'],  level:1, icon:'💪', sets:{b:'3×12',i:'3×12',a:'4×10'}, cue:'Alternate or simultaneous, supinate wrist at top.', yt:'dumbbell curl form'},
+  pull_hammer_curl:     {name:'Hammer Curls',           req:['dumbbells'],          muscles:['biceps'],  level:1, icon:'🔨', sets:{b:'3×12',i:'3×12',a:'4×10'}, cue:'Neutral grip, builds brachialis and forearms too.', yt:'hammer curl how to'},
+  pull_cable_curl:      {name:'Cable Bicep Curl',       req:['cable_machine'],      muscles:['biceps'],  level:1, icon:'💪', sets:{b:'3×12',i:'3×12',a:'4×10'}, cue:'Constant tension at bottom unlike free weights.', yt:'cable bicep curl'},
+  pull_trx_curl:        {name:'TRX Bicep Curl',         req:['trx'],                muscles:['biceps'],  level:1, icon:'🪢', sets:{b:'3×12',i:'3×12',a:'3×12'}, cue:'Face anchor, palms up, curl to forehead. Keep elbows high.', yt:'TRX bicep curl'},
+  pull_band_curl:       {name:'Band Bicep Curl',        req:['resistance_bands'],   muscles:['biceps'],  level:1, icon:'🌀', sets:{b:'3×15',i:'3×15',a:'3×15'}, cue:'Stand on band, curl up with strict form.', yt:'resistance band bicep curl'},
+  // LEGS - QUAD
+  leg_barbell_squat:    {name:'Barbell Back Squat',     req:['barbell','squat_rack'],muscles:['quads'],  level:2, icon:'🏋️', sets:{b:'3×8',i:'4×8',a:'5×5'}, cue:'Sit back and down, chest up, knees track toes.', yt:'barbell squat form'},
+  leg_goblet_squat:     {name:'Goblet Squat',           req:['kettlebells','dumbbells'],muscles:['quads'],level:1,icon:'🏺',sets:{b:'3×12',i:'3×15',a:'4×12'},cue:'Hold weight at chest, squat deep, elbows push knees out.',yt:'goblet squat how to'},
+  leg_db_lunge:         {name:'Dumbbell Lunges',        req:['dumbbells'],          muscles:['quads'],   level:1, icon:'👣', sets:{b:'3×10',i:'3×12',a:'4×10'}, cue:'Step forward, lower back knee. Front shin vertical.', yt:'dumbbell lunge'},
+  leg_smith_squat:      {name:'Smith Machine Squat',    req:['smith_machine'],      muscles:['quads'],   level:1, icon:'🏗️', sets:{b:'3×10',i:'4×10',a:'4×8'}, cue:'Feet slightly forward, controlled descent.', yt:'smith machine squat'},
+  leg_leg_press:        {name:'Leg Press',              req:['leg_press'],          muscles:['quads'],   level:1, icon:'🦵', sets:{b:'3×12',i:'4×12',a:'4×10'}, cue:'Full range, don't lock out at top. Feet shoulder-width.', yt:'leg press how to'},
+  leg_bodyweight_squat: {name:'Bodyweight Squat',       req:['yoga_mat'],           muscles:['quads'],   level:1, icon:'🧎', sets:{b:'3×15',i:'3×20',a:'3×25'}, cue:'Perfect form first — depth before weight.', yt:'bodyweight squat form'},
+  leg_split_squat:      {name:'Bulgarian Split Squat',  req:['dumbbells','bench'],  muscles:['quads'],   level:2, icon:'🦵', sets:{b:'3×8',i:'3×10',a:'4×10'}, cue:'Rear foot elevated, drop straight down. Brutal for quads.', yt:'bulgarian split squat'},
+  leg_step_up:          {name:'DB Step-ups',            req:['dumbbells','bench'],  muscles:['quads'],   level:1, icon:'⬆️', sets:{b:'3×10',i:'3×12',a:'4×10'}, cue:'Drive through front heel, controlled step down.', yt:'dumbbell step up'},
+  // LEGS - POSTERIOR
+  leg_rdl:              {name:'Romanian Deadlift',      req:['barbell','dumbbells'],muscles:['hamstrings'],level:1,icon:'🔻',sets:{b:'3×10',i:'3×10',a:'4×8'},cue:'Hinge at hips, push them BACK. Feel hamstring stretch.',yt:'romanian deadlift form'},
+  leg_kb_swing:         {name:'Kettlebell Swings',      req:['kettlebells'],        muscles:['hamstrings'],level:1,icon:'🏺',sets:{b:'3×15',i:'3×20',a:'4×20'},cue:'Hip hinge NOT a squat. Hips drive the bell, not arms.',yt:'kettlebell swing how to'},
+  leg_hip_thrust:       {name:'Hip Thrust',             req:['barbell','bench'],    muscles:['glutes'],   level:1, icon:'⬆️', sets:{b:'3×12',i:'4×12',a:'4×10'}, cue:'Upper back on bench, drive hips up, squeeze hard at top.', yt:'barbell hip thrust'},
+  leg_nordic_curl:      {name:'Nordic Curl',            req:['hyper_extension'],    muscles:['hamstrings'],level:2,icon:'⚡',sets:{b:'3×5',i:'3×6',a:'4×8'},cue:'Slow eccentric lower — use hands to catch. Best hamstring exercise.',yt:'nordic hamstring curl'},
+  leg_cable_rdl:        {name:'Cable Pull-through',     req:['cable_machine'],      muscles:['glutes'],   level:1, icon:'🔀', sets:{b:'3×15',i:'3×15',a:'4×12'}, cue:'Low pulley, stand facing away. Hip hinge with constant tension.', yt:'cable pull through'},
+  leg_leg_curl:         {name:'Leg Curl Machine',       req:['leg_curl'],           muscles:['hamstrings'],level:1,icon:'🦵',sets:{b:'3×12',i:'3×12',a:'4×10'},cue:'Full range of motion, squeeze at top.', yt:'leg curl machine'},
+  leg_freak_hip:        {name:'Hip Thrust (Hyper Pro)', req:['hyper_extension','barbell'],muscles:['glutes'],level:1,icon:'⚡',sets:{b:'3×12',i:'4×12',a:'4×10'},cue:'Set up on Hyper Pro surface, barbell across hips. Squeeze at top.',yt:'hip thrust how to'},
+  leg_rev_hyper:        {name:'Reverse Hyper',          req:['reverse_hyper'],      muscles:['hamstrings'],level:1,icon:'🔄',sets:{b:'3×12',i:'3×15',a:'4×15'},cue:'Decompress spine while building posterior chain. Keep it controlled.',yt:'reverse hyperextension'},
+  // CORE
+  core_plank:           {name:'Plank',                  req:['yoga_mat'],           muscles:['core'],    level:1, icon:'🔲', sets:{b:'3×30s',i:'3×60s',a:'4×60s'}, cue:'Body straight, brace abs and glutes. Don't let hips sag.', yt:'plank form'},
+  core_dead_bug:        {name:'Dead Bug',                req:['yoga_mat'],           muscles:['core'],    level:1, icon:'🐛', sets:{b:'3×8',i:'3×10',a:'3×12'}, cue:'Press lower back to floor. Lower opposite arm and leg slowly.', yt:'dead bug exercise'},
+  core_leg_raise:       {name:'Leg Raises',             req:['yoga_mat','pullup_bar'],muscles:['core'],  level:1, icon:'🦵', sets:{b:'3×10',i:'3×15',a:'3×15'}, cue:'Slow controlled descent. Lower back stays down.', yt:'leg raise how to'},
+  core_cable_crunch:    {name:'Cable Crunch',           req:['cable_machine'],      muscles:['core'],    level:1, icon:'⚡', sets:{b:'3×12',i:'3×15',a:'4×15'}, cue:'Kneel at cable, crunch DOWN with abs not arms.', yt:'cable crunch how to'},
+  core_ab_wheel:        {name:'Ab Wheel Rollout',       req:['ab_wheel'],           muscles:['core'],    level:2, icon:'⚙️', sets:{b:'3×8',i:'3×10',a:'4×12'}, cue:'Keep core tight, don't let hips sag as you extend.', yt:'ab wheel rollout'},
+  core_mountain_climber:{name:'Mountain Climbers',      req:['yoga_mat'],           muscles:['core'],    level:1, icon:'🏔️', sets:{b:'3×20s',i:'3×30s',a:'3×45s'}, cue:'Fast pace, hips LOW. Drive knees to chest alternately.', yt:'mountain climbers'},
+  core_trx_fallout:     {name:'TRX Fallout',            req:['trx'],                muscles:['core'],    level:2, icon:'🪢', sets:{b:'3×8',i:'3×10',a:'4×10'}, cue:'Standing ab wheel. Arms extend overhead, body stays rigid.', yt:'TRX fallout'},
+  core_trx_pike:        {name:'TRX Pike / Knee Tuck',  req:['trx'],                muscles:['core'],    level:2, icon:'🪢', sets:{b:'3×10',i:'3×12',a:'4×12'}, cue:'Feet in straps. Pike: lift hips. Knee tuck: pull knees to chest.', yt:'TRX pike knee tuck'},
+  core_ghd:             {name:'GHD Sit-up',             req:['hyper_extension'],    muscles:['core'],    level:2, icon:'⚡', sets:{b:'3×10',i:'3×12',a:'4×15'}, cue:'Decline angle. Lower slow (3 counts), rise with abs. Build range gradually.', yt:'GHD sit up'},
+  core_woodchop:        {name:'Cable Woodchop',         req:['cable_machine'],      muscles:['core'],    level:1, icon:'🌀', sets:{b:'3×12',i:'3×12',a:'3×12'}, cue:'Rotate from core, not arms. High to low or low to high.', yt:'cable woodchop'},
+  core_situp_decline:   {name:'Decline Sit-up',        req:['hyper_extension','incline_bench'],muscles:['core'],level:1,icon:'⚡',sets:{b:'3×12',i:'3×15',a:'4×15'},cue:'Slow eccentric, full range. Add weight for progression.',yt:'decline sit up'},
+  // CARDIO
+  cardio_treadmill:     {name:'Treadmill LISS',         req:['treadmill'],          muscles:['cardio'],  level:1, icon:'🏃', sets:{b:'20min',i:'30min',a:'40min'}, cue:'60-70% max HR. Conversational pace. Fat burning zone.', yt:'LISS cardio treadmill'},
+  cardio_bike:          {name:'Stationary Bike LISS',   req:['bike'],               muscles:['cardio'],  level:1, icon:'🚴', sets:{b:'20min',i:'30min',a:'40min'}, cue:'Moderate resistance, steady effort. 120-140 bpm.', yt:'stationary bike cardio'},
+  cardio_rower:         {name:'Rowing Machine LISS',    req:['rower'],              muscles:['cardio'],  level:1, icon:'🚣', sets:{b:'15min',i:'25min',a:'30min'}, cue:'Legs → body → arms. 18-22 strokes per minute.', yt:'rowing machine cardio'},
+  cardio_jump_rope:     {name:'Jump Rope',              req:['jump_rope'],          muscles:['cardio'],  level:1, icon:'🪃', sets:{b:'5min',i:'10min',a:'15min'}, cue:'Land softly on balls of feet. Wrists do the work.', yt:'jump rope how to'},
+  cardio_sprint:        {name:'Sprint Intervals',       req:['treadmill','rower','bike'],muscles:['cardio'],level:1,icon:'⚡',sets:{b:'6rounds',i:'8rounds',a:'10rounds'},cue:'30s max / 90s easy. Full recovery between sprints.',yt:'sprint interval training'},
+  cardio_kb_circuit:    {name:'KB Circuit HIIT',        req:['kettlebells'],        muscles:['cardio'],  level:1, icon:'🏺', sets:{b:'3rounds',i:'4rounds',a:'5rounds'}, cue:'Swings, goblet squats, cleans. 40s on / 20s off.', yt:'kettlebell HIIT workout'},
+  cardio_bodyweight_hiit:{name:'Bodyweight HIIT',       req:['yoga_mat'],           muscles:['cardio'],  level:1, icon:'✊', sets:{b:'3rounds',i:'4rounds',a:'5rounds'}, cue:'Burpees, squat jumps, mountain climbers. Max effort.', yt:'bodyweight HIIT workout'},
+  cardio_battle_ropes:  {name:'Battle Rope Intervals',  req:['battle_ropes'],       muscles:['cardio'],  level:1, icon:'🌊', sets:{b:'3×20s',i:'4×30s',a:'5×30s'}, cue:'Alternating waves, stay low. Drive from hips.', yt:'battle ropes how to'},
+  cardio_elliptical:    {name:'Elliptical',             req:['elliptical'],         muscles:['cardio'],  level:1, icon:'🔁', sets:{b:'20min',i:'30min',a:'40min'}, cue:'Low impact, good for recovery days. Vary resistance.', yt:'elliptical workout'},
+};
+
+// ── SMART WORKOUT GENERATOR ────────────────────────────────────────────────────
+function generateWorkouts(equipment, trainingDays, fitnessLevel) {
+  const eq = new Set(equipment);
+  const lvl = fitnessLevel; // 'beginner','intermediate','advanced'
+  const lvlNum = {beginner:1,intermediate:2,advanced:3}[lvl];
+
+  // Helper: filter exercises by equipment + level
+  function canDo(ex) {
+    if (EX_DB[ex].level > lvlNum) return false;
+    return EX_DB[ex].req.some(r => eq.has(r));
+  }
+
+  // Helper: get exercises for a muscle group
+  function getExercises(muscleGroups, count, excludeIds=[]) {
+    const pool = Object.entries(EX_DB)
+      .filter(([id, ex]) =>
+        muscleGroups.some(m => ex.muscles.includes(m)) &&
+        canDo(id) &&
+        !excludeIds.includes(id)
+      )
+      .sort((a,b) => b[1].level - a[1].level); // prefer higher level for variety
+    return pool.slice(0, count).map(([id, ex]) => ({
+      id, name: ex.name, detail: ex.sets[lvl] || ex.sets.i,
+      icon: ex.icon, type: 'strength', hasWeight: !['core','cardio'].includes(ex.muscles[0]),
+      cue: ex.cue, yt: ex.yt
+    }));
+  }
+
+  // Helper: get cardio exercise
+  function getCardio(count=1) {
+    const pool = Object.entries(EX_DB)
+      .filter(([id]) => canDo(id) && EX_DB[id].muscles[0]==='cardio');
+    return pool.slice(0,count).map(([id,ex])=>({
+      id, name:ex.name, detail:ex.sets[lvl]||ex.sets.i,
+      icon:ex.icon, type:'cardio', hasWeight:false, cue:ex.cue, yt:ex.yt
+    }));
+  }
+
+  // Helper: get core exercises
+  function getCore(count=2) {
+    return getExercises(['core'], count).map(e=>({...e, type:'core', hasWeight:false}));
+  }
+
+  // Determine warm-up based on cardio equipment
+  const hasCardioMachine = eq.has('treadmill')||eq.has('bike')||eq.has('rower');
+  const warmupEx = hasCardioMachine
+    ? [{id:'warmup_machine',name:eq.has('treadmill')?'Treadmill Warm-up':eq.has('bike')?'Bike Warm-up':'Rower Warm-up',detail:'5 min easy pace + dynamic stretching',icon:'🚴',type:'warmup',hasWeight:false,cue:'Easy pace to elevate heart rate. Leg swings, arm circles.',yt:'cardio warm up'}]
+    : [{id:'warmup_bw',name:'Bodyweight Warm-up',detail:'5 min jumping jacks, leg swings, arm circles',icon:'🤸',type:'warmup',hasWeight:false,cue:'Get blood flowing. Dynamic movements only — no static stretching.',yt:'warm up exercises no equipment'}];
+
+  const cooldownEx = [
+    {id:'cool_med',name:'Meditation',detail:'5–10 min — Headspace, Calm, or quiet breathing',icon:'🧘',type:'cooldown',hasWeight:false,cue:'Slow breathing, let heart rate drop fully.',yt:'guided meditation after workout'},
+    {id:'cool_stretch',name:'Full Body Stretch',detail:'Hip flexors, chest, hamstrings, shoulders',icon:'🤸',type:'cooldown',hasWeight:false,cue:'Hold 30-45s each stretch. Focus on what was worked today.',yt:'full body stretch'},
+  ];
+
+  // Build day schedules based on training days
+  const schedules = {
+    2: ['upper','lower'],
+    3: ['push','pull','lower'],
+    4: ['push','pull','lower','upper'],
+    5: ['push','pull','lower','upper','cardio_hiit'],
+  };
+  const schedule = schedules[trainingDays] || schedules[4];
+
+  // Generate each workout
+  const workouts = {};
+  const DOW_FOR_DAYS = {
+    2: [1,4],           // Mon, Thu
+    3: [1,3,5],         // Mon, Wed, Fri
+    4: [1,2,4,5],       // Mon, Tue, Thu, Fri
+    5: [1,2,4,5,6],     // Mon, Tue, Thu, Fri, Sat
+  };
+  const activeDays = DOW_FOR_DAYS[trainingDays] || DOW_FOR_DAYS[4];
+  const allDays = [0,1,2,3,4,5,6];
+
+  // Map DOW to workout type
+  const dayWorkoutMap = {};
+  activeDays.forEach((dow, i) => {
+    dayWorkoutMap[dow] = schedule[i % schedule.length];
+  });
+
+  allDays.forEach(dow => {
+    const wType = dayWorkoutMap[dow];
+    if (!wType) {
+      // Rest day
+      workouts[dow] = {
+        name: 'Rest Day', icon: '😴',
+        A: [
+          {id:'rest_walk',name:'Light Walk',detail:'20–30 min',icon:'🚶',type:'cardio',hasWeight:false,cue:'Easy recovery pace. Just move.',yt:'active recovery benefits'},
+          ...(eq.has('foam_roller')?[{id:'rest_foam',name:'Foam Roll',detail:'10 min',icon:'🛞',type:'cooldown',hasWeight:false,cue:'Focus on tight areas. Pause 30-60s on knots.',yt:'foam rolling how to'}]:[]),
+          {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,cue:'Rest and mental recovery.',yt:'guided meditation'},
+        ],
+        B: [
+          {id:'rest_walk',name:'Light Walk',detail:'20–30 min',icon:'🚶',type:'cardio',hasWeight:false,cue:'Easy pace, fresh air.',yt:'active recovery'},
+          {id:'cool_med',name:'Meditation',detail:'5–10 min',icon:'🧘',type:'cooldown',hasWeight:false,cue:'Rest and reset.',yt:'guided meditation'},
+        ]
+      };
+      return;
+    }
+
+    let exA = [], exB = [];
+    const sets_count = {beginner:3,intermediate:4,advanced:5}[lvl];
+
+    if (wType === 'push' || wType === 'upper') {
+      const chestA = getExercises(['chest'], 2);
+      const shoulderA = getExercises(['shoulders'], 2);
+      const tricepA = getExercises(['triceps'], 1);
+      exA = [...warmupEx, ...chestA, ...shoulderA, ...tricepA, ...getCore(2), ...cooldownEx];
+
+      const chestB = getExercises(['chest'], 2, chestA.map(e=>e.id));
+      const shoulderB = getExercises(['shoulders'], 2, shoulderA.map(e=>e.id));
+      const tricepB = getExercises(['triceps'], 1, tricepA.map(e=>e.id));
+      exB = [...warmupEx, ...chestB, ...shoulderB, ...tricepB, ...getCore(2), ...cooldownEx];
+    }
+    else if (wType === 'pull') {
+      const backA = getExercises(['back'], 3);
+      const bicepA = getExercises(['biceps'], 2);
+      exA = [...warmupEx, ...backA, ...bicepA, ...getCore(2), ...cooldownEx];
+
+      const backB = getExercises(['back'], 3, backA.map(e=>e.id));
+      const bicepB = getExercises(['biceps'], 2, bicepA.map(e=>e.id));
+      exB = [...warmupEx, ...backB, ...bicepB, ...getCore(2), ...cooldownEx];
+    }
+    else if (wType === 'lower') {
+      const quadA = getExercises(['quads'], 2);
+      const hamA = getExercises(['hamstrings','glutes'], 2);
+      exA = [...warmupEx, ...quadA, ...hamA, ...getCore(3), ...cooldownEx];
+
+      const quadB = getExercises(['quads'], 2, quadA.map(e=>e.id));
+      const hamB = getExercises(['hamstrings','glutes'], 2, hamA.map(e=>e.id));
+      exB = [...warmupEx, ...quadB, ...hamB, ...getCore(3), ...cooldownEx];
+    }
+    else if (wType === 'cardio_hiit') {
+      const cardioA = getCardio(2);
+      exA = [...warmupEx, ...cardioA, ...getCore(2), ...cooldownEx];
+      exB = [...warmupEx, ...getCardio(2).reverse(), ...getCore(2), ...cooldownEx];
+    }
+
+    // Fallback if not enough exercises (minimal equipment)
+    if (exA.length <= 2) {
+      exA = [...warmupEx, ...getExercises(['chest','back','quads'], 4), ...getCore(2), ...cooldownEx];
+    }
+    if (exB.length <= 2) exB = exA;
+
+    const names = {push:'Upper Body Push',pull:'Upper Body Pull',lower:'Lower Body + Core',upper:'Upper Body',cardio_hiit:'HIIT Cardio'};
+    const icons = {push:'💪',pull:'🔝',lower:'🦵',upper:'💪',cardio_hiit:'⚡'};
+
+    workouts[dow] = {
+      name: names[wType] || wType,
+      icon: icons[wType] || '💪',
+      A: exA.filter(Boolean),
+      B: exB.filter(Boolean),
+    };
+  });
+
+  return workouts;
+}
+
+// ── ONBOARDING STATE ──────────────────────────────────────────────────────────
+let obStep = 0;
+let obData = { name:'', weight:0, goal:0, calories:2100, equipment:[], days:4, level:'intermediate', wearable:'none', ouraToken:'' };
+
+const TOTAL_OB_STEPS = 6;
+
+function showOnboarding() {
+  document.getElementById('onboarding').style.display = 'block';
+  document.querySelector('.app').style.display = 'none';
+  document.querySelector('.sync-bar').style.display = 'none';
+  document.querySelector('.bottom-nav').style.display = 'none';
+  renderEquipGrid('equipGrid', obData.equipment, (id) => {
+    if (obData.equipment.includes(id)) obData.equipment = obData.equipment.filter(e=>e!==id);
+    else obData.equipment.push(id);
+    renderEquipGrid('equipGrid', obData.equipment, arguments.callee);
+  });
+  obGoToStep(0);
+}
+
+function hideOnboarding() {
+  document.getElementById('onboarding').style.display = 'none';
+  document.querySelector('.app').style.display = '';
+  document.querySelector('.sync-bar').style.display = '';
+  document.querySelector('.bottom-nav').style.display = '';
+}
+
+function obGoToStep(n) {
+  obStep = n;
+  document.querySelectorAll('.ob-step').forEach((el,i) => el.classList.toggle('active', i===n));
+  document.querySelectorAll('.ob-dot').forEach((el,i) => {
+    el.classList.toggle('done', i<n);
+    el.classList.toggle('active', i===n);
+  });
+  document.getElementById('onboarding').scrollTop = 0;
+}
+
+function obNext() {
+  if (obStep === 1) {
+    const name = document.getElementById('ob-name').value.trim();
+    const w = parseFloat(document.getElementById('ob-weight').value);
+    const g = parseFloat(document.getElementById('ob-goal').value);
+    const c = parseInt(document.getElementById('ob-calories').value)||2100;
+    if (!name) { alert('Please enter your name'); return; }
+    if (!w || w < 100) { alert('Please enter a valid weight'); return; }
+    if (!g || g < 100) { alert('Please enter a valid goal weight'); return; }
+    obData.name = name; obData.weight = w; obData.goal = g; obData.calories = c;
+  }
+  if (obStep === 2 && obData.equipment.length === 0) {
+    alert('Please select at least one piece of equipment'); return;
+  }
+  if (obStep < TOTAL_OB_STEPS - 1) obGoToStep(obStep + 1);
+}
+
+function obBack() {
+  if (obStep > 0) obGoToStep(obStep - 1);
+}
+
+function obSelectDays(n) {
+  obData.days = n;
+  document.querySelectorAll('.day-opt').forEach(el => el.classList.remove('selected'));
+  const el = document.getElementById('od-'+n);
+  if (el) el.classList.add('selected');
+}
+
+function obSelectLevel(lvl) {
+  obData.level = lvl;
+  ['beginner','intermediate','advanced'].forEach(l => {
+    const el = document.getElementById('ol-'+l);
+    if (el) el.classList.toggle('selected', l===lvl);
+  });
+}
+
+function obSelectWearable(w) {
+  // Only oura and none are selectable
+  if (w === 'apple' || w === 'garmin' || w === 'whoop') return;
+  obData.wearable = w;
+  ['oura','apple','garmin','whoop','none'].forEach(id => {
+    const el = document.getElementById('ow-'+id);
+    if (el && id !== 'apple' && id !== 'garmin' && id !== 'whoop') {
+      el.classList.toggle('selected', id === w);
+    }
+  });
+  const ouraConnect = document.getElementById('ob-oura-connect');
+  if (ouraConnect) ouraConnect.style.display = w === 'oura' ? 'block' : 'none';
+}
+
+async function obTestOura() {
+  const token = document.getElementById('ob-oura-token').value.trim();
+  const statusEl = document.getElementById('ob-oura-status');
+  const btn = document.getElementById('ob-oura-test-btn');
+  if (!token) { statusEl.textContent = '⚠️ Please paste your token first'; statusEl.style.color='var(--warn)'; return; }
+  btn.textContent = 'Testing...'; btn.disabled = true;
+  statusEl.textContent = 'Connecting to Oura...'; statusEl.style.color='var(--muted)';
+  try {
+    const res = await fetch(OURA_PROXY + '?endpoint=daily_readiness&start=' + todayStr() + '&end=' + todayStr(),
+      { headers: { 'x-oura-token': token } });
+    const data = await res.json();
+    if (data.data !== undefined) {
+      obData.ouraToken = token;
+      statusEl.textContent = '✅ Connected! Oura data will sync automatically.';
+      statusEl.style.color = 'var(--success)';
+      btn.textContent = '✅ Connected';
+    } else {
+      statusEl.textContent = '❌ Invalid token — check and try again';
+      statusEl.style.color = 'var(--danger)';
+      btn.textContent = '🔗 Test Connection'; btn.disabled = false;
+    }
+  } catch(e) {
+    statusEl.textContent = '❌ Connection failed — check your internet';
+    statusEl.style.color = 'var(--danger)';
+    btn.textContent = '🔗 Test Connection'; btn.disabled = false;
+  }
+}
+
+function obFinish() {
+  if (!obData.level) { alert('Please select a fitness level'); return; }
+  if (!obData.days)  { alert('Please select training days'); return; }
+
+  // Apply to state
+  state.userName = obData.name;
+  state.currentWeight = obData.weight;
+  state.startWeight = obData.weight;
+  state.goalWeight = obData.goal;
+  state.calorieTarget = obData.calories;
+  state.equipment = obData.equipment;
+  state.trainingDays = obData.days;
+  state.fitnessLevel = obData.level;
+  state.hasOura = obData.wearable === 'oura' && obData.ouraToken !== '';
+  state.ouraToken = obData.ouraToken || null;
+  state.wearable = obData.wearable;
+  state.onboardingComplete = true;
+
+  // Generate custom workouts
+  state.generatedWorkouts = generateWorkouts(obData.equipment, obData.days, obData.level);
+
+  save();
+  hideOnboarding();
+  updateHeaderName();
+  render();
+  showToast('🎉 Your plan is ready, ' + obData.name + '!');
+}
+
+function updateHeaderName() {
+  const name = state.userName;
+  if (name) {
+    const ml = document.querySelector('.mission-label');
+    if (ml) ml.textContent = '// GymIQ — ' + name + "'s Plan";
+  }
+}
+
+// ── EQUIPMENT GRID RENDERER ───────────────────────────────────────────────────
+function renderEquipGrid(containerId, selected, onToggle) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = EQUIPMENT_LIST.map(eq => `
+    <div class="equip-item ${selected.includes(eq.id)?'selected':''}" onclick="toggleEquip('${eq.id}','${containerId}')">
+      <span class="eq-icon">${eq.icon}</span>
+      <span style="flex:1;font-size:13px;">${eq.name}</span>
+      <span class="eq-check">${selected.includes(eq.id)?'✓':''}</span>
+    </div>`).join('');
+}
+
+function toggleEquip(id, gridId) {
+  if (gridId === 'equipGrid') {
+    if (obData.equipment.includes(id)) obData.equipment = obData.equipment.filter(e=>e!==id);
+    else obData.equipment.push(id);
+    renderEquipGrid('equipGrid', obData.equipment, null);
+  } else {
+    if (!state.equipment) state.equipment = [];
+    if (state.equipment.includes(id)) state.equipment = state.equipment.filter(e=>e!==id);
+    else state.equipment.push(id);
+    renderEquipGrid('settingsEquipGrid', state.equipment, null);
+  }
+}
+
+// ── SETTINGS FUNCTIONS ────────────────────────────────────────────────────────
+function renderSettings() {
+  // Profile
+  const nameEl = document.getElementById('set-name');
+  if (nameEl) nameEl.value = state.userName || '';
+  const swEl = document.getElementById('set-start-weight');
+  if (swEl) swEl.value = state.startWeight || '';
+  const gwEl = document.getElementById('set-goal-weight');
+  if (gwEl) gwEl.value = state.goalWeight || '';
+  const calEl = document.getElementById('set-calories');
+  if (calEl) calEl.value = state.calorieTarget || 2100;
+
+  // Equipment
+  renderEquipGrid('settingsEquipGrid', state.equipment||[], null);
+
+  // Days
+  [2,3,4,5].forEach(d => {
+    const el = document.getElementById('sd-'+d);
+    if (el) el.classList.toggle('selected', state.trainingDays===d);
+  });
+
+  // Level
+  ['beginner','intermediate','advanced'].forEach(l => {
+    const el = document.getElementById('sl-'+l);
+    if (el) el.classList.toggle('selected', state.fitnessLevel===l);
+  });
+
+  // Wearable / Oura
+  const wearableStatus = document.getElementById('settingsWearableStatus');
+  const ouraConnect = document.getElementById('settingsOuraConnect');
+  const ouraDisconnect = document.getElementById('settingsOuraDisconnect');
+  const ouraConnectBtn = document.getElementById('settingsOuraConnectBtn');
+  const tokenInput = document.getElementById('set-oura-token');
+
+  if (state.hasOura) {
+    if (wearableStatus) wearableStatus.innerHTML = '<span style="color:var(--success)">✅ Oura Ring connected</span>';
+    if (ouraConnect) ouraConnect.style.display = 'none';
+    if (ouraDisconnect) ouraDisconnect.style.display = 'block';
+    if (ouraConnectBtn) ouraConnectBtn.style.display = 'none';
+    if (tokenInput) tokenInput.value = state.ouraToken || '';
+  } else {
+    if (wearableStatus) wearableStatus.textContent = 'No wearable connected. Connect an Oura Ring to sync sleep, HRV, and calories automatically.';
+    if (ouraConnect) ouraConnect.style.display = 'none';
+    if (ouraDisconnect) ouraDisconnect.style.display = 'none';
+    if (ouraConnectBtn) ouraConnectBtn.style.display = 'block';
+  }
+}
+
+function showOuraConnect() {
+  const el = document.getElementById('settingsOuraConnect');
+  const btn = document.getElementById('settingsOuraConnectBtn');
+  if (el) el.style.display = 'block';
+  if (btn) btn.style.display = 'none';
+}
+
+async function testAndSaveOuraToken() {
+  const token = document.getElementById('set-oura-token').value.trim();
+  const statusEl = document.getElementById('settingsOuraStatus');
+  if (!token) { statusEl.textContent = '⚠️ Paste your token first'; statusEl.style.color='var(--warn)'; return; }
+  statusEl.textContent = 'Testing connection...'; statusEl.style.color='var(--muted)';
+  try {
+    const res = await fetch(OURA_PROXY + '?endpoint=daily_readiness&start=' + todayStr() + '&end=' + todayStr(),
+      { headers: { 'x-oura-token': token } });
+    const data = await res.json();
+    if (data.data !== undefined) {
+      state.ouraToken = token;
+      state.hasOura = true;
+      save(); renderSettings(); render();
+      statusEl.textContent = '✅ Connected!'; statusEl.style.color='var(--success)';
+      showToast('💍 Oura Ring connected!');
+      fetchOura();
+    } else {
+      statusEl.textContent = '❌ Invalid token — check and try again';
+      statusEl.style.color = 'var(--danger)';
+    }
+  } catch(e) {
+    statusEl.textContent = '❌ Connection failed';
+    statusEl.style.color = 'var(--danger)';
+  }
+}
+
+function disconnectOura() {
+  if (!confirm('Disconnect Oura Ring? The Oura section will be hidden.')) return;
+  state.hasOura = false;
+  state.ouraToken = null;
+  save(); renderSettings(); render();
+  showToast('Oura disconnected');
+}
+
+let settingsDays = null;
+let settingsLevel = null;
+
+function setDays(n) {
+  settingsDays = n;
+  [2,3,4,5].forEach(d => {
+    const el = document.getElementById('sd-'+d);
+    if (el) el.classList.toggle('selected', d===n);
+  });
+}
+
+function setLevel(l) {
+  settingsLevel = l;
+  ['beginner','intermediate','advanced'].forEach(lvl => {
+    const el = document.getElementById('sl-'+lvl);
+    if (el) el.classList.toggle('selected', lvl===l);
+  });
+}
+
+function saveProfile() {
+  const name = document.getElementById('set-name').value.trim();
+  const sw = parseFloat(document.getElementById('set-start-weight').value);
+  const gw = parseFloat(document.getElementById('set-goal-weight').value);
+  const cal = parseInt(document.getElementById('set-calories').value)||2100;
+  if (name) state.userName = name;
+  if (sw > 0) state.startWeight = sw;
+  if (gw > 0) state.goalWeight = gw;
+  state.calorieTarget = cal;
+  save(); render(); updateHeaderName();
+  showToast('✅ Profile saved!');
+}
+
+function saveEquipment() {
+  if (!state.equipment || state.equipment.length === 0) {
+    showToast('Select at least one piece of equipment'); return;
+  }
+  state.generatedWorkouts = generateWorkouts(state.equipment, state.trainingDays||4, state.fitnessLevel||'intermediate');
+  save(); render();
+  showToast('✅ Workouts regenerated!');
+}
+
+function saveDays() {
+  if (settingsDays) state.trainingDays = settingsDays;
+  state.generatedWorkouts = generateWorkouts(state.equipment||[], state.trainingDays||4, state.fitnessLevel||'intermediate');
+  save(); render();
+  showToast('✅ Schedule updated & workouts regenerated!');
+}
+
+function saveLevel() {
+  if (settingsLevel) state.fitnessLevel = settingsLevel;
+  state.generatedWorkouts = generateWorkouts(state.equipment||[], state.trainingDays||4, state.fitnessLevel||'intermediate');
+  save(); render();
+  showToast('✅ Level updated & workouts regenerated!');
+}
+
+function rerunSetup() {
+  if (!confirm('This will restart the setup wizard. Your data is preserved.')) return;
+  state.onboardingComplete = false;
+  save();
+  obData = { name: state.userName||'', weight: state.currentWeight||0, goal: state.goalWeight||0, calories: state.calorieTarget||2100, equipment: [...(state.equipment||[])], days: state.trainingDays||4, level: state.fitnessLevel||'intermediate' };
+  showOnboarding();
+  // Pre-fill
+  setTimeout(()=>{
+    const ni=document.getElementById('ob-name'); if(ni) ni.value=obData.name;
+    const wi=document.getElementById('ob-weight'); if(wi) wi.value=obData.weight;
+    const gi=document.getElementById('ob-goal'); if(gi) gi.value=obData.goal;
+    const ci=document.getElementById('ob-calories'); if(ci) ci.value=obData.calories;
+    renderEquipGrid('equipGrid',obData.equipment,null);
+    if(obData.days){const el=document.getElementById('od-'+obData.days);if(el)el.classList.add('selected');}
+    if(obData.level){const el=document.getElementById('ol-'+obData.level);if(el)el.classList.add('selected');}
+  },100);
 }
 
 // ── RESET ────────────────────────────────────────────────────────────────────
@@ -1496,15 +2701,18 @@ const OURA_PROXY = 'https://gymiq-oura.sachin8.workers.dev/';
 let ouraActiveCal = 0;
 
 async function fetchOura() {
+  if (!state.hasOura) return; // No Oura connected
   const statusEl = document.getElementById('ouraStatus');
   const dataEl = document.getElementById('ouraData');
+  if (!statusEl) return;
   statusEl.textContent = 'Fetching from Oura...';
   dataEl.style.display = 'none';
 
   const today = todayStr();
 
   try {
-    const headers = {'x-oura-token': OURA_TOKEN};
+    const token = state.ouraToken || OURA_TOKEN;
+    const headers = {'x-oura-token': token};
 
     const proxyFetch = (endpoint, start, end) =>
       fetch(`${OURA_PROXY}?endpoint=${endpoint}&start=${start}&end=${end}`, {headers});
@@ -1546,7 +2754,11 @@ async function fetchOura() {
     // Activity: prefer today's live data, show blank if not yet available
     // Don't fall back to yesterday — stale calorie data is misleading
     const actRecords = (actData.data || []);
-    const activity = actRecords.find(a => a.day === today) || null;
+    // Try today first, fall back to most recent (activity finalizes at end of day)
+    const todayActivity = actRecords.find(a => a.day === today);
+    const recentActivity = actRecords.sort((a,b)=>new Date(b.day)-new Date(a.day))[0] || null;
+    const activity = todayActivity || recentActivity;
+    const isActivityToday = activity?.day === today;
 
     // Show which night's data is displayed
     const debugMsg = sleep
@@ -1561,6 +2773,7 @@ async function fetchOura() {
     const restHR = sleep?.lowest_heart_rate ?? null;
     const sleepSecs = sleep?.total_sleep_duration ?? null;
     const sleepHrs = sleepSecs ? (sleepSecs / 3600).toFixed(1) : null;
+    // Oura v2 active_calories field
     const activeCal = activity?.active_calories ?? null;
     ouraActiveCal = activeCal || 0;
 
@@ -1584,6 +2797,9 @@ async function fetchOura() {
     setMetric('oura-hr', restHR ? Math.round(restHR) + 'bpm' : null, restHR ? (restHR<=58?'oura-high':restHR<=68?'oura-mid':'oura-low') : '');
     setMetric('oura-sleep-hrs', sleepHrs ? sleepHrs + 'h' : null, sleepHrs ? (parseFloat(sleepHrs)>=7?'oura-high':parseFloat(sleepHrs)>=6?'oura-mid':'oura-low') : '');
     setMetric('oura-calories', activeCal, '');
+    // Update active cal label to show which day
+    const calLbl = document.querySelector('#oura-calories')?.closest('.oura-metric')?.querySelector('.om-lbl');
+    if (calLbl) calLbl.textContent = isActivityToday ? 'Active Cal' : 'Active Cal ('+(activity?.day?.slice(5)||'prev')+')';
 
     // Training advice based on readiness
     const adviceEl = document.getElementById('ouraAdvice');
@@ -1616,7 +2832,7 @@ async function fetchOura() {
       sleepScore !== null ? 'Sleep' : null,
       hrv !== null ? 'HRV' : null,
       restHR !== null ? 'HR' : null,
-      activeCal !== null ? 'Calories' : null,
+      activeCal !== null ? (isActivityToday ? 'Calories (today)' : 'Calories ('+activity?.day+')') : null,
     ].filter(Boolean);
     const pending = [
       readScore === null ? 'Readiness' : null,
@@ -1627,7 +2843,7 @@ async function fetchOura() {
     ].filter(Boolean);
     statusEl.textContent = synced.length
       ? 'Synced: ' + synced.join(', ') + (pending.length ? ' · Pending: ' + pending.join(', ') : '')
-      : 'Ring not yet synced for today — check back after morning sync';
+      : 'Ring not yet synced — check back after morning sync';
 
     // Save to state for persistence
     state.ouraToday = {readScore, sleepScore, hrv, restHR, sleepHrs, activeCal, ts: Date.now()};
@@ -1649,9 +2865,14 @@ function applyOuraBurn() {
 // ── INIT ─────────────────────────────────────────────────────────────────────
 migrateTimezone();
 checkDailyReset();
-render();
-loadFromCloud();
-fetchOura();
+if (!state.onboardingComplete) {
+  // Show onboarding for new users
+  showOnboarding();
+} else {
+  render();
+  loadFromCloud();
+  fetchOura();
+}
 </script>
 </body>
 </html>
