@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="GymIQ">
 <meta name="theme-color" content="#2a7d4f">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 
@@ -356,6 +357,33 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
 /* SETTINGS PAGE */
 .settings-section{margin-bottom:20px;}
 .settings-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+
+/* ── AUTH SCREEN ──────────────────────────────────────────────────────────── */
+.auth-overlay{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;}
+.auth-logo{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--accent);letter-spacing:4px;line-height:1;}
+.auth-tagline{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:48px;}
+.auth-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 24px;}
+.auth-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:4px;}
+.auth-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:16px 0;}
+.auth-divider span{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;color:var(--text);transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.auth-google-btn:hover{border-color:var(--accent);background:var(--accent-light);}
+.auth-google-btn svg{width:20px;height:20px;flex-shrink:0;}
+.auth-field{margin-bottom:14px;}
+.auth-field label{display:block;font-size:11px;font-family:'DM Mono',monospace;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+.auth-field input{width:100%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text);border-radius:12px;padding:12px 16px;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;box-sizing:border-box;}
+.auth-field input:focus{border-color:var(--accent);}
+.auth-submit{width:100%;background:var(--accent);color:#000;border:none;border-radius:12px;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;cursor:pointer;margin-top:4px;}
+.auth-switch{text-align:center;margin-top:16px;font-size:13px;color:var(--muted);}
+.auth-switch a{color:var(--accent);cursor:pointer;font-weight:600;}
+.auth-error{background:#2d1515;border:1px solid var(--danger);color:var(--danger);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none;}
+.auth-loading{text-align:center;padding:20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
+.user-pill{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--surface2);border-radius:100px;border:1px solid var(--border);margin-bottom:12px;}
+.user-pill img{width:24px;height:24px;border-radius:50%;}
+.user-pill span{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);}
+.signout-btn{font-size:11px;color:var(--danger);cursor:pointer;margin-left:auto;font-family:'DM Mono',monospace;}
 </style>
 </head>
 <body>
@@ -364,6 +392,67 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
   <div class="sync-pill synced" id="syncPill" onclick="syncNow()">
     <div class="sdot" id="syncDot"></div>
     <span id="syncText">Synced</span>
+  </div>
+</div>
+
+<!-- ── AUTH OVERLAY ──────────────────────────────────────────────────────── -->
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-logo">GymIQ</div>
+  <div class="auth-tagline">Your gym · Your data · Your plan</div>
+
+  <div class="auth-card">
+    <!-- Loading state -->
+    <div id="authLoading" class="auth-loading">Checking session...</div>
+
+    <!-- Main auth form -->
+    <div id="authForm" style="display:none;">
+      <div id="authError" class="auth-error"></div>
+
+      <!-- Google Sign-in -->
+      <button class="auth-google-btn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider"><span>or use email</span></div>
+
+      <!-- Email/Password -->
+      <div id="authSignIn">
+        <div class="auth-title">Sign In</div>
+        <div class="auth-sub">Welcome back to GymIQ</div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="authPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="auth-submit" onclick="signInWithEmail()">SIGN IN</button>
+        <div class="auth-switch">No account? <a onclick="toggleAuthMode()">Sign up free</a></div>
+      </div>
+
+      <!-- Sign Up form -->
+      <div id="authSignUp" style="display:none;">
+        <div class="auth-title">Create Account</div>
+        <div class="auth-sub">Join GymIQ — it's free</div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="authEmailUp" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="authPasswordUp" placeholder="Min 6 characters" autocomplete="new-password">
+        </div>
+        <button class="auth-submit" onclick="signUpWithEmail()">CREATE ACCOUNT</button>
+        <div class="auth-switch">Already have an account? <a onclick="toggleAuthMode()">Sign in</a></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -518,7 +607,14 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
 
 <div class="app">
   <header>
-    <div class="mission-label">// GymIQ</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+    <div class="mission-label" id="missionLabel">// GymIQ</div>
+    <div id="userPill" style="display:none;" class="user-pill">
+      <img id="userAvatar" src="" style="display:none;">
+      <span id="userEmail"></span>
+      <span class="signout-btn" onclick="signOut()">Sign out</span>
+    </div>
+  </div>
     <h1>LOSE <span>30</span> LBS</h1>
     <div id="levelBanner" class="level-banner" style="margin-top:12px;background:var(--surface2);border:1px solid var(--border);">
       <div class="level-icon" id="levelIcon">🌱</div>
@@ -2726,6 +2822,239 @@ function rerunSetup() {
   },100);
 }
 
+
+// ── SUPABASE AUTH ─────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://pgzbwmwkchpvqvftfczm.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnemJ3bXdrY2hwdnF2ZnRmY3ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MDI0OTIsImV4cCI6MjA5MTQ3ODQ5Mn0.RMTIDqXQXWTxFe0cUJChA1Ods-DmVs_XqrQoMfoZbHM';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+
+// ── AUTH UI ───────────────────────────────────────────────────────────────────
+function showAuthOverlay() {
+  document.getElementById('authOverlay').style.display = 'flex';
+  document.querySelector('.app').style.display = 'none';
+  const syncBar = document.querySelector('.sync-bar');
+  if(syncBar) syncBar.style.display = 'none';
+  const nav = document.querySelector('.bottom-nav');
+  if(nav) nav.style.display = 'none';
+  const ob = document.getElementById('onboarding');
+  if(ob) ob.style.display = 'none';
+}
+
+function hideAuthOverlay() {
+  document.getElementById('authOverlay').style.display = 'none';
+  document.querySelector('.app').style.display = '';
+  const syncBar = document.querySelector('.sync-bar');
+  if(syncBar) syncBar.style.display = '';
+  const nav = document.querySelector('.bottom-nav');
+  if(nav) nav.style.display = '';
+}
+
+function showAuthForm() {
+  document.getElementById('authLoading').style.display = 'none';
+  document.getElementById('authForm').style.display = 'block';
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+function toggleAuthMode() {
+  const si = document.getElementById('authSignIn');
+  const su = document.getElementById('authSignUp');
+  const err = document.getElementById('authError');
+  err.style.display = 'none';
+  if(si.style.display === 'none') {
+    si.style.display = 'block'; su.style.display = 'none';
+  } else {
+    si.style.display = 'none'; su.style.display = 'block';
+  }
+}
+
+async function signInWithGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if(error) showAuthError(error.message);
+}
+
+async function signInWithEmail() {
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  if(!email || !password) { showAuthError('Please enter email and password'); return; }
+  const btn = event.target;
+  btn.textContent = 'SIGNING IN...'; btn.disabled = true;
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  btn.textContent = 'SIGN IN'; btn.disabled = false;
+  if(error) showAuthError(error.message);
+}
+
+async function signUpWithEmail() {
+  const email = document.getElementById('authEmailUp').value.trim();
+  const password = document.getElementById('authPasswordUp').value;
+  if(!email || !password) { showAuthError('Please enter email and password'); return; }
+  if(password.length < 6) { showAuthError('Password must be at least 6 characters'); return; }
+  const btn = event.target;
+  btn.textContent = 'CREATING...'; btn.disabled = true;
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  btn.textContent = 'CREATE ACCOUNT'; btn.disabled = false;
+  if(error) { showAuthError(error.message); return; }
+  if(data.user && !data.session) {
+    showAuthError('Check your email to confirm your account, then sign in.');
+  }
+}
+
+async function signOut() {
+  await supabase.auth.signOut();
+  currentUser = null;
+  state = {...DEFAULT};
+  showAuthOverlay();
+  showAuthForm();
+  showToast('Signed out');
+}
+
+// ── USER PILL ─────────────────────────────────────────────────────────────────
+function updateUserPill(user) {
+  const pill = document.getElementById('userPill');
+  const emailEl = document.getElementById('userEmail');
+  const avatar = document.getElementById('userAvatar');
+  if(!pill) return;
+  if(user) {
+    pill.style.display = 'flex';
+    const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'User';
+    emailEl.textContent = name;
+    const pic = user.user_metadata?.avatar_url;
+    if(pic) { avatar.src = pic; avatar.style.display = 'block'; }
+    else { avatar.style.display = 'none'; }
+  } else {
+    pill.style.display = 'none';
+  }
+}
+
+// ── SUPABASE DATA SYNC ────────────────────────────────────────────────────────
+async function loadFromSupabase(userId) {
+  try {
+    const { data, error } = await supabase
+      .from('user_data')
+      .select('data')
+      .eq('id', userId)
+      .single();
+    if(error && error.code !== 'PGRST116') throw error; // PGRST116 = no rows
+    if(data?.data && Object.keys(data.data).length > 0) {
+      state = {...DEFAULT, ...data.data};
+      // Never restore generatedWorkouts from DB
+      state.generatedWorkouts = null;
+      localStorage.setItem('fitnessState', JSON.stringify(state));
+      return true;
+    }
+    return false;
+  } catch(e) {
+    console.error('Load from Supabase failed:', e);
+    return false;
+  }
+}
+
+async function saveToSupabase() {
+  if(!currentUser) return;
+  try {
+    const stateToSave = {...state, generatedWorkouts: null};
+    await supabase
+      .from('user_data')
+      .upsert({ id: currentUser.id, data: stateToSave, updated_at: new Date().toISOString() });
+  } catch(e) {
+    console.error('Save to Supabase failed:', e);
+  }
+}
+
+// ── SESSION HANDLING ──────────────────────────────────────────────────────────
+async function handleSession(session) {
+  if(!session) {
+    showAuthOverlay();
+    showAuthForm();
+    return;
+  }
+
+  currentUser = session.user;
+  updateUserPill(currentUser);
+
+  // Load data from Supabase
+  setSyncStatus('syncing');
+  const hasData = await loadFromSupabase(currentUser.id);
+  setSyncStatus('synced');
+
+  // Apply migrations
+  migrateTimezone();
+  checkDailyReset();
+
+  // Apply Oura migration for existing users
+  if(!state.ouraToken && state.weightHistory && state.weightHistory.length > 0) {
+    state.hasOura = true;
+    state.ouraToken = 'S3YFRUR7OBIXTXCAX3PUQ3UON4GB3O4W';
+  }
+  if(state.ouraToken && !state.hasOura) state.hasOura = true;
+
+  // Pre-fill userName from Google profile if empty
+  if(!state.userName && currentUser.user_metadata?.full_name) {
+    state.userName = currentUser.user_metadata.full_name.split(' ')[0];
+  }
+
+  // Mark existing users as onboarded
+  if(!state.onboardingComplete && state.weightHistory && state.weightHistory.length > 0) {
+    state.onboardingComplete = true;
+    if(!state.equipment || state.equipment.length === 0) {
+      state.equipment = ['dumbbells','barbell','pullup_bar','resistance_bands','treadmill',
+        'bench','kettlebells','trx','cable_machine','smith_machine','hyper_extension',
+        'reverse_hyper','landmine','battle_ropes'];
+    }
+    if(!state.trainingDays) state.trainingDays = 4;
+    if(!state.fitnessLevel) state.fitnessLevel = 'intermediate';
+    state.generatedWorkouts = null;
+  }
+
+  hideAuthOverlay();
+
+  if(!state.onboardingComplete) {
+    showOnboarding();
+  } else {
+    render();
+    fetchOura();
+  }
+}
+
+// ── SUPABASE SAVE TRIGGER ────────────────────────────────────────────────────
+// Called after every save() to also persist to Supabase
+function triggerSupabaseSave() {
+  clearTimeout(window._supabaseSaveTimer);
+  window._supabaseSaveTimer = setTimeout(saveToSupabase, 1500);
+}
+
+// ── INIT WITH SUPABASE ────────────────────────────────────────────────────────
+async function initApp() {
+  showAuthOverlay();
+
+  // Listen for auth state changes (handles OAuth redirects too)
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    if(event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+      await handleSession(session);
+    } else if(event === 'SIGNED_OUT') {
+      showAuthOverlay();
+      showAuthForm();
+    }
+  });
+
+  // Check current session
+  const { data: { session } } = await supabase.auth.getSession();
+  if(!session) {
+    showAuthForm();
+  }
+  // handleSession called by onAuthStateChange
+}
+
 // ── RESET ────────────────────────────────────────────────────────────────────
 function resetAll(){
   if(!confirm('Export a backup first! Reset all data?')) return;
@@ -2932,16 +3261,8 @@ function applyOuraBurn() {
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-migrateTimezone();
-checkDailyReset();
-if (!state.onboardingComplete) {
-  // Show onboarding for new users
-  showOnboarding();
-} else {
-  render();
-  loadFromCloud();
-  fetchOura();
-}
+// Boot via Supabase auth
+initApp();
 </script>
 </body>
 </html>
