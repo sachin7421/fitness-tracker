@@ -829,6 +829,50 @@ button.outline{background:transparent;color:var(--accent);border:1.5px solid var
     </div>
 
     <div class="card">
+      <div class="card-title">💍 Wearable Device</div>
+      <div id="settingsWearableStatus" style="font-size:13px;color:var(--muted);margin-bottom:12px;"></div>
+
+      <!-- Oura connect form (hidden by default) -->
+      <div id="settingsOuraConnect" style="display:none;">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">How to get your token:</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.7;">
+            1. Go to <strong>cloud.ouraring.com</strong><br>
+            2. Profile → <strong>Personal Access Tokens</strong><br>
+            3. Click <strong>Create New Token</strong><br>
+            4. Name it "GymIQ", enable all scopes<br>
+            5. Copy and paste below
+          </div>
+        </div>
+        <div class="ob-field" style="margin-bottom:10px;">
+          <label class="ob-label">Oura Personal Access Token</label>
+          <input class="ob-input" id="set-oura-token" type="text" placeholder="Paste token from cloud.ouraring.com" style="font-size:13px;font-family:'DM Mono',monospace;">
+        </div>
+        <button onclick="testAndSaveOuraToken()" style="width:100%;background:var(--accent);">🔗 Test & Connect Oura</button>
+        <div id="settingsOuraStatus" style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);text-align:center;padding:8px;min-height:20px;"></div>
+      </div>
+
+      <!-- Disconnect button (shown when connected) -->
+      <div id="settingsOuraDisconnect" style="display:none;">
+        <button onclick="disconnectOura()" class="secondary" style="width:100%;">Disconnect Oura Ring</button>
+      </div>
+
+      <!-- Connect button (shown when not connected) -->
+      <button onclick="showOuraConnect()" id="settingsOuraConnectBtn" style="width:100%;display:none;">+ Connect Oura Ring</button>
+
+      <!-- Coming soon -->
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+        <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Coming Soon</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:12px;padding:5px 12px;background:var(--surface2);border-radius:100px;color:var(--muted);border:1px solid var(--border);">⌚ Apple Watch</span>
+          <span style="font-size:12px;padding:5px 12px;background:var(--surface2);border-radius:100px;color:var(--muted);border:1px solid var(--border);">🟢 Garmin</span>
+          <span style="font-size:12px;padding:5px 12px;background:var(--surface2);border-radius:100px;color:var(--muted);border:1px solid var(--border);">🔴 Whoop</span>
+          <span style="font-size:12px;padding:5px 12px;background:var(--surface2);border-radius:100px;color:var(--muted);border:1px solid var(--border);">🍎 Apple Health</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-title">🔄 Re-run Setup</div>
       <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Start the setup wizard again to reconfigure everything from scratch.</p>
       <button class="secondary" onclick="rerunSetup()" style="width:100%;">Re-run Setup Wizard</button>
@@ -1137,15 +1181,26 @@ if(!state.onboardingComplete && state.weightHistory && state.weightHistory.lengt
   if(!state.trainingDays) state.trainingDays = 4;
   if(!state.fitnessLevel) state.fitnessLevel = 'intermediate';
   if(!state.userName) state.userName = '';
+  // Clear any broken generatedWorkouts so WORKOUTS fallback is used
+  state.generatedWorkouts = null;
   // Existing user has Oura already configured with hardcoded token
   if(state.hasOura === undefined) {
     state.hasOura = true;
     state.ouraToken = 'S3YFRUR7OBIXTXCAX3PUQ3UON4GB3O4W';
   }
 }
-// Also migrate hasOura for users who already completed onboarding without wearable step
-if(state.onboardingComplete && state.hasOura === undefined) {
+// Migrate hasOura — if token exists in state or hardcoded, ensure hasOura is true
+if(!state.ouraToken && state.hasOura === undefined) {
   state.hasOura = false;
+}
+// If user has a token saved, make sure hasOura is true
+if(state.ouraToken && !state.hasOura) {
+  state.hasOura = true;
+}
+// Fallback: existing users who have weight data — give them the hardcoded token
+if(state.onboardingComplete && !state.ouraToken && state.weightHistory && state.weightHistory.length > 0) {
+  state.hasOura = true;
+  state.ouraToken = 'S3YFRUR7OBIXTXCAX3PUQ3UON4GB3O4W';
 }
 
 let syncTimer=null;
@@ -1613,10 +1668,16 @@ function renderWeekWorkoutView(){
   const dow=getViewDow();
   const todayDow=new Date().getDay();
   const isToday=dow===todayDow;
-  const workoutSource = state.generatedWorkouts || WORKOUTS;
+  // Validate generatedWorkouts — fall back to WORKOUTS if empty/broken
+  let workoutSource = WORKOUTS;
+  if(state.generatedWorkouts) {
+    const sample = state.generatedWorkouts[1] || state.generatedWorkouts[0];
+    const hasExercises = sample && ((sample.A||[]).length > 2);
+    workoutSource = hasExercises ? state.generatedWorkouts : WORKOUTS;
+  }
   const w=workoutSource[dow] || WORKOUTS[dow];
   const routine=state.currentRoutine||'A';
-  const exercises=w[routine]||w.A;
+  const exercises=(w[routine]||w.A||[]);
 
   // Header
   document.getElementById('navDow').textContent=DOW_NAMES[dow];
