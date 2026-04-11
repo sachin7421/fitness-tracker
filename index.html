@@ -3037,22 +3037,37 @@ function triggerSupabaseSave() {
 async function initApp() {
   showAuthOverlay();
 
-  // Listen for auth state changes (handles OAuth redirects too)
-  supabase.auth.onAuthStateChange(async (event, session) => {
-    if(event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+  try {
+    // Check current session first
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    if(error) {
+      console.error('Session error:', error);
+      showAuthForm();
+      return;
+    }
+
+    if(session) {
       await handleSession(session);
-    } else if(event === 'SIGNED_OUT') {
-      showAuthOverlay();
+    } else {
       showAuthForm();
     }
-  });
 
-  // Check current session
-  const { data: { session } } = await supabase.auth.getSession();
-  if(!session) {
+    // Listen for future auth state changes (Google OAuth redirect etc)
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth event:', event);
+      if(event === 'SIGNED_IN') {
+        await handleSession(session);
+      } else if(event === 'SIGNED_OUT') {
+        showAuthOverlay();
+        showAuthForm();
+      }
+    });
+
+  } catch(e) {
+    console.error('initApp error:', e);
     showAuthForm();
   }
-  // handleSession called by onAuthStateChange
 }
 
 // ── RESET ────────────────────────────────────────────────────────────────────
@@ -3262,7 +3277,7 @@ function applyOuraBurn() {
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 // Boot via Supabase auth
-initApp();
+document.addEventListener("DOMContentLoaded", initApp);
 </script>
 </body>
 </html>
